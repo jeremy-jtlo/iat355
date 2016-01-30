@@ -4,7 +4,7 @@
 //    console.log(dataset)
 // });
 
-d3.csv("http://www.sfu.ca/~erniet/IAT355/hpi.csv")
+d3.csv("http://www.sfu.ca/~jtlo/iat355/data/hpi.csv")
    .row(function(d) 
    { 
 	   	d["Year"] = +d["Year"];
