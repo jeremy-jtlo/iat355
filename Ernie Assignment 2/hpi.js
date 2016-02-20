@@ -10,7 +10,7 @@ d3.csv("http://www.sfu.ca/~jtlo/iat355/data/hpi.csv")
 	   	console.log(d);
    })
    .get(function(error, data){
-	console.log(data);
+	// console.log(data);
 
 	processData(data); //executes processData function
 })
