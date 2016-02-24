@@ -11,6 +11,7 @@ var filter_max = 50000;
 
 var filter_year = "2001";
 
+var header_text = "BC Population Stats"
 var greeting_string = "Population data for BC " + start_year + " to " + (end_year-1);
 var exit_string = "The numbers were provided by BC Stats: http://www.bcstats.gov.bc.ca/StatisticsBySubject/Demography/PopulationEstimates.aspx";
 
@@ -20,7 +21,7 @@ var min_array = [];
 var city_of_interest = "Port Coquitlam";
 var population_sum = 0;
 
-// Greting String
+d3.select("body").append("h1").text(header_text);
 d3.select("body").append("p").text(greeting_string);
 
 d3.csv(csv_file)

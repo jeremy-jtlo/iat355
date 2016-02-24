@@ -1,0 +1,30 @@
+Notes from Feb 19 Class:
+
+-Figure out what's already in place in Burnaby
+	-This tells us more about the meaning of incoming building permits
+	-Also means we may have to figure out maps
+
+-Check Population census
+	-Figure out more about the population: age, income, ethnicity, career
+
+-Drive the visualization with questions
+	-"What's getting built? What exists already?"
+	-"Is there a relationship between our buildings and the population?"
+		-Hunt for CORRELATIONS
+
+-If we hunt for correlations, map coordinates may not be needed
+	-Correlations can be represented by graphs fairly easily, esp. 2D
+
+-Building permits can be shown as a line chart/histogram. What permits are spiking? When?
+	-Scatterplots can be introduced when we start comparing other dimensions
+		-Population, taxes, subsidies
+
+-"Personas": Help us figure out who's going to be asking the questions we're trying to answer
+	-Us young dudes: Can we ever afford a house in Greater Vancouver?
+		-Young, 20-27
+		-Post-secondary education
+		-$40,000 - $65,000 CAD annually for junior positions
+	-Realtors/investors: What's the market been doing? Where will it go?
+		-Looking to put money in maybe not just 1 property
+		-Expanded view to more than just townhouses, duplexes, and condos
+		-Perhaps looking for commercial or wider-scale development
