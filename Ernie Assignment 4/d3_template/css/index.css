@@ -6,3 +6,9 @@ svg {
   border: thin solid #ccc;
   margin: 0 auto;
 }
+/* Each line is a 'tick' */
+path.domain, line {
+	shape-rendering: crispEdges;
+	stroke: black;
+	fill: none;
+}
