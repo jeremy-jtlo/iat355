@@ -1,94 +1,84 @@
-/*
-This tutorial is available at:
-http://jsbin.com/nibobe/edit?js,output
-*/
-
-d3.csv("http://www.sfu.ca/~aga53/data/iris.csv")
-.row(fixIrisRow)
+d3.csv("http://www.sfu.ca/~erniet/IAT355/Assignment%204/D3/Active_Listings_D3.csv")
+.row(fixDataRow)
 .get(function(error, points){
   // error checking
   if(error){
     console.error("Error occured while reading file. " + error);
   }else{
     var svg = d3.select("svg");
-    drawScatterplot(svg, points);
+    drawBarGraph(svg, points);
   }
 });
 
-function drawScatterplot(svg, points) {
-  var enterSelection = svg.selectAll("circle")
+function drawBarGraph(svg, points) {
+  var barWidth = 20;
+  var enterSelection = svg.selectAll("rect")
   .data(points)
   .enter();
-  
-  var minSL = d3.min(points, function(d){
-    return d["Sepal Length"];
-  });
-  
-  
-  var maxSL = d3.max(points, function(d){
-    return d["Sepal Length"];
-  });
-  
-  var minSW = d3.min(points, function(d){
-    return d["Sepal Width"];
-  });
-  
-  
-  var maxSW = d3.max(points, function(d){
-    return d["Sepal Width"];
-  });
-  
-  var xScale = d3.scale.linear().domain([minSL, maxSL]).range([50, 450]);
-  
-  var yScale = d3.scale.linear().domain([minSW, maxSW]).range([450, 50]);
 
-  enterSelection.append("circle")
+  enterSelection.append("rect")
   .attr({
-    cx  : function(d, i){
-      return xScale(d["Sepal Length"]);
-    },
-    cy  : function(d, i){
-      return yScale(d["Sepal Width"]);
-    },
-    r  : function(d, i){
-      return d["Petal Length"];
-    },
-    fill: function(d, i){
-      return speciesColors[d.Species];
-    }
+      x: function(d,i){return i*barWidth;},
+      y: function(d,i){return 50-d;},
+      width: barWidth-1, //-1 to add space between bars
+      height: function(d,i){return d;},
+      fill: function(d, i){return houseTypeColors[d.Households];}
+  });
+
+  var minDate = d3.min(points, function(d){
+    return d["Date"];
   });
   
-  var xAxis = d3.svg.axis().scale(xScale);
-  var yAxis = d3.svg.axis().scale(yScale).orient("left");
   
-  svg.append("g").attr("class", "axis").attr("transform", "translate(0,450)")
-    .call(xAxis);
+  var maxDate = d3.max(points, function(d){
+    return d["Date"];
+  });
   
-  svg.append("g").attr("class", "axis").attr("transform", "translate(50, 0)").call(yAxis);
+  // var minSW = d3.min(points, function(d){
+  //   return d["Sepal Width"];
+  // });
+  
+  
+  // var maxSW = d3.max(points, function(d){
+  //   return d["Sepal Width"];
+  // });
+
+var xScale = d3.scale.linear().domain([minDate, maxDate]).range([50, 450]);
+  
+// var yScale = d3.scale.linear().domain([minSW, maxSW]).range([450, 50]);
+
+
+
+ var xAxis = d3.svg.axis().scale(xScale);  
+  svg.append("g")
+  .attr("class", "axis")
+  .attr("transform", "translate(0, 450)")
+  //.ticks(d3.time.year, 2)
+  .call(xAxis);
+  
+  // var yAxis = d3.svg.axis().scale(yScale).orient("left");  
+  // svg.append("g")
+  // .attr("class", "axis")
+  // .attr("transform", "translate(50, 0)")
+  // .call(yAxis);
   
 }
 
-var speciesColors = {
-  "virginica": "red",
-  "versicolor": "blue",
-  "setosa" : "green"
+var houseTypeColors = {
+  "Detached": "red",
+  "Townhouse": "blue",
+  "Apartment": "green"
 };
 
-function fixIrisRow(d) {
-  d["Petal Length"] = +d["Petal Length"];
-  d["Petal Width"] = +d["Petal Width"];
-  d["Sepal Length"] = +d["Sepal Length"];
-  d["Sepal Width"] = +d["Sepal Width"];
+function fixDataRow(d) {
+  var format = d3.time.format("%Y-%m-%d");
+  d["Date"] = format.parse(d["Date"]).getFullYear();
+  console.log(d["Date"]);
+  d["Households"] = +d["Households"];  
   return d;
 }
 
-
-
-
-
-
-
-
-
-
-
+ 
+  
+  
+  
