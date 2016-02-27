@@ -1,0 +1,8 @@
+div.svg-container {
+  text-align: center;
+}
+
+svg {
+  border: thin solid #ccc;
+  margin: 0 auto;
+}
