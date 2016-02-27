@@ -19,9 +19,9 @@ function drawBarGraph(svg, points) {
   enterSelection.append("rect")
   .attr({
       x: function(d,i){return i*barWidth;},
-      y: function(d,i){return 50-d;},
+      y: function(d,i){return 0},
       width: barWidth-1, //-1 to add space between bars
-      height: function(d,i){return d;},
+      height: function(d,i){return d["Households"];},
       fill: function(d, i){return houseTypeColors[d.Households];}
   });
 
