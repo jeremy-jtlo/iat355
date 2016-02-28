@@ -23,3 +23,15 @@ rect {
 rect:hover {
 	fill: red;
 }
+
+.orange {
+	fill: #BD6B16;
+}
+
+.blue { 
+	fill: #49449E;
+}
+
+.green {
+	fill: #368A55;
+}
