@@ -12,6 +12,10 @@ d3.csv("http://www.sfu.ca/~erniet/IAT355/Assignment%204/D3/Active_Listings_D3.cs
 
 function drawBarGraph(svg, points) {
   var barWidth = 20;
+
+  var w = 600;
+  var h = 600;
+
   var enterSelection = svg.selectAll("rect")
   .data(points)
   .enter();
@@ -21,7 +25,11 @@ function drawBarGraph(svg, points) {
       x: function(d,i){return i*barWidth;},
       y: function(d,i){return 0},
       width: barWidth-1, //-1 to add space between bars
-      height: function(d,i){return d["Households"];},
+      height: function(d,i)
+        {
+          return d["Households"];
+          // return (yScale(0) - yScale(d["Households"].value));
+        },
       fill: function(d, i){return houseTypeColors[d.Households];}
   });
 
@@ -34,33 +42,36 @@ function drawBarGraph(svg, points) {
     return d["Date"];
   });
   
-  // var minSW = d3.min(points, function(d){
-  //   return d["Sepal Width"];
-  // });
+  var minHolds = d3.min(points, function(d){
+    return d["Households"];
+  });
   
   
-  // var maxSW = d3.max(points, function(d){
-  //   return d["Sepal Width"];
-  // });
+  var maxHolds = d3.max(points, function(d){
+    return d["Households"];
+  });
 
-var xScale = d3.scale.linear().domain([minDate, maxDate]).range([50, 450]);
+// var xScale = d3.scale.ordinal()
+//   .domain([minDate, maxDate]).rangeRoundBands([0, w]);
+
+var xScale = d3.scale.linear()
+  .domain([minDate, maxDate]).range([0, w]);
   
-// var yScale = d3.scale.linear().domain([minSW, maxSW]).range([450, 50]);
-
-
+var yScale = d3.scale.linear()
+  .domain([minHolds, maxHolds]).range([h, 0])
+  
 
  var xAxis = d3.svg.axis().scale(xScale);  
   svg.append("g")
   .attr("class", "axis")
-  .attr("transform", "translate(0, 450)")
-  //.ticks(d3.time.year, 2)
+  .attr("transform", "translate(50, 550)")
   .call(xAxis);
   
-  // var yAxis = d3.svg.axis().scale(yScale).orient("left");  
-  // svg.append("g")
-  // .attr("class", "axis")
-  // .attr("transform", "translate(50, 0)")
-  // .call(yAxis);
+  var yAxis = d3.svg.axis().scale(yScale).orient("left");  
+  svg.append("g")
+  .attr("class", "axis")
+  .attr("transform", "translate(50, 0)")
+  .call(yAxis);
   
 }
 
