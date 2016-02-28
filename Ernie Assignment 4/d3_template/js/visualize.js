@@ -68,11 +68,11 @@ var yScale = d3.scale.linear()
         // if(d.Region="Detached"){
         var scalingFactor = 0.30;
         var regionFactor = 0;
-        console.log(d.Date.getMonth());
+
         if (d.Date.getMonth() >= 5) {
           scalingFactor += 0.5;
         }
-        console.log(d.Region);
+        // console.log(d.Region);
         if(d.Region=="South")
         {
           regionFactor = -0.075;
@@ -104,7 +104,24 @@ var yScale = d3.scale.linear()
 
 
         },
-      fill: function(d, i){return houseTypeColors[d.Households];}
+      fill: function(d, i){return houseTypeColors[d.Households]
+
+      ;}
+  })
+  .attr("class", function(d,i) {
+    var addThisClass = "orange";
+    // console.log(d.Region);
+    if(d.Region=="South")
+    {
+      addThisClass = "blue";
+    }
+
+    if(d.Region=="North")
+    {
+      addThisClass = "green";
+    }
+
+    return addThisClass;
   });
 
  
