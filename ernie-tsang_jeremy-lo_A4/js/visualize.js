@@ -12,7 +12,6 @@ d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Lis
 
 //draws the bargraph
 function drawBarGraph(svg, points) {
-  var barWidth = 20;
   var offset = 68;
   var w = 600;
   var h = 600;
@@ -99,15 +98,12 @@ var yScale = d3.scale.linear()
         {          
           return (yScale(0) - yScale(d.Households)); //inverts the bars so that it is facing upwards
         },
-
-      fill: function(d, i){return houseTypeColors[d.Households] //change the colours based on the household type
-      ;}
   })
 
   //decide which colours to fill based on region
   .attr("class", function(d,i) {
     var addThisClass = "orange";
-    // console.log(d.Region);
+    
     if(d.Region=="South")
     {
       addThisClass = "blue";
@@ -122,13 +118,6 @@ var yScale = d3.scale.linear()
   });
 
 }
-
-//deciding which type of household gets what colour
-var houseTypeColors = {
-  "Detached": "red",
-  "Townhouse": "blue",
-  "Apartment": "green"
-};
 
 //fixes the data formatting
 function fixDataRow(d) {
