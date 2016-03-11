@@ -17,7 +17,7 @@ function getDateRange(d){
     // Loop
     for (var i=0; i<d.length; i++){
         date_object = d[i]["Date"];
-        date_object = new Date(date_object);
+        console.log(date_object);
         date_list.push(date_object);
     }
 
@@ -37,16 +37,15 @@ function fixDataRow(d) {
 // Drawing the graph
 function drawBarGraph(svg, points) {
     var date_array = getDateRange(points);
-    console.log(typeof(date_array[0]));
-    console.log(date_array[0]);
-    var xScale = d3.scale.time.domain(date_array).range([MARGINS.left, WIDTH - MARGINS.right]);
+    // console.log(typeof(date_array[0]));
+    // console.log(date_array[0].toDateString());
+    var xScale = d3.time.scale().domain(date_array).range([MARGINS.left, WIDTH - MARGINS.right]);
     // var yScale = d3.scale.time().domain().range();
     
     // Define axes
-    xAxis = d3.svg.axis()
+    var xAxis = d3.svg.axis()
             .scale(xScale);
             
-    
     // Append axes        
     vis.append("svg:g")
     .attr("class", "axis")
