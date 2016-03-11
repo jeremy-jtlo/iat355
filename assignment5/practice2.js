@@ -11,12 +11,12 @@ var vis = d3.select("#visualisation"),
     };
 
 // Returns a list of date objects from input data
-function getDateRange = function(d){
+function getDateRange(d){
     var date_list = []
     date_list = d["Date"];
 
     return date_list;
-};
+}
 
 // Cleaning csv file
 function fixDataRow(d) {
@@ -26,7 +26,12 @@ function fixDataRow(d) {
     return d;
 }
 
-d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Listings_D3.csv");
+// Drawing the graph
+function drawBarGraph(svg, points) {
+    
+}
+
+d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Listings_D3.csv")
 .row(fixDataRow)
 .get(function(error, points){
     if(error){
