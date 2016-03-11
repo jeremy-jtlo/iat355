@@ -13,11 +13,15 @@ var vis = d3.select("#visualisation"),
 // Returns a list of date objects from input data
 function getDateRange(d){
     var date_list = []
-    date_list.push(d["Date"]);
 
     // Loop
+    for (var i=0; i<d.length; i++){
+        date_object = d[i]["Date"];
+        date_object = new Date(date_object);
+        date_list.push(date_object);
+    }
 
-    console.log(date_list);
+    // console.log(date_list);
     return date_list;
 }
 
@@ -32,10 +36,22 @@ function fixDataRow(d) {
 
 // Drawing the graph
 function drawBarGraph(svg, points) {
-    // console.log(points)
-    getDateRange(points[0]);
-    // var xScale = d3.scale.time().domain().range();
+    var date_array = getDateRange(points);
+    console.log(typeof(date_array[0]));
+    console.log(date_array[0]);
+    var xScale = d3.scale.time.domain(date_array).range([MARGINS.left, WIDTH - MARGINS.right]);
     // var yScale = d3.scale.time().domain().range();
+    
+    // Define axes
+    xAxis = d3.svg.axis()
+            .scale(xScale);
+            
+    
+    // Append axes        
+    vis.append("svg:g")
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+    .call(xAxis);
 
 }
 
