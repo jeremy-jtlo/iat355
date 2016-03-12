@@ -7,3 +7,20 @@
     font-family: Lato, 'Open Sans', sans-serif;
     font-size: 13px;
 }
+
+.data-line.blue {
+    stroke: blue;
+}
+
+.data-line.green {
+    stroke: green;
+}
+
+.data-line.red {
+    stroke: red;
+}
+
+.data-line:hover {
+    stroke: black;
+    stroke-width: 5;
+}

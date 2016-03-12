@@ -147,8 +147,8 @@ function drawBarGraph(svg, points) {
     // Append line to visualization
     function visAppend(data_set, colour, width) {
         vis.append('svg:path')
+            .attr('class', 'data-line '+colour)
             .attr('d', lineGen(data_set))
-            .attr('stroke', colour)
             .attr('stroke-width', width)
             .attr('fill', 'none');
     }
