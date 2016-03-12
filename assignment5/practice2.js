@@ -177,8 +177,21 @@ function drawBarGraph(svg, points) {
     visAppend('Central', central_det, 'green', 2);
     visAppend('South', south_det, 'green', 2);
 
-    $('.North').hide();
-    $('.South').hide();
+    if ($('#north').prop('checked') == true){
+        $('.North').show();
+    } else {
+        $('.North').hide();
+    }
+    if ($('#central').prop('checked') == true){
+        $('.Central').show();
+    } else {
+        $('.Central').hide();
+    }
+    if ($('#south').prop('checked') == true){
+        $('.South').show();
+    } else {
+        $('.South').hide();
+    }
     
 }
 
