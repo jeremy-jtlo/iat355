@@ -1,4 +1,14 @@
 // d3.scale.domain([dates]) takes an array of date objects
+/*
+RESOURCES
+
+Sorting date objects:
+https://onpub.com/how-to-sort-an-array-of-dates-with-javascript-s7-a109
+
+Sorting objects by date key:
+http://stackoverflow.com/questions/19430561/how-to-sort-a-javascript-array-of-objects-by-date
+
+*/
 
 var vis = d3.select("#visualisation"),
     WIDTH = 1000,
@@ -17,12 +27,39 @@ function getDateRange(d){
     // Loop
     for (var i=0; i<d.length; i++){
         date_object = d[i]["Date"];
-        console.log(date_object);
+        // console.log(date_object);
         date_list.push(date_object);
     }
 
     // console.log(date_list);
     return date_list;
+}
+
+// Returns a list of entries matching a REGION and LISTING TYPE
+function returnDataSet(d, desired_region, desired_type){
+    var listing_list = []
+    
+    // Loop
+    for (var i=0; i<d.length; i++){
+        var current_listing = d[i];
+        if ((current_listing["Region"] == desired_region) && (current_listing["Type"] == desired_type)) {
+            listing_list.push(current_listing);
+        }
+    }
+    
+    return listing_list;
+}
+
+// Sort dates in ascending order when called from sort()
+var date_sort_asc = function (date1, date2) {
+    if (date1 > date2) return 1;
+    if (date1 < date2) return -1;
+    return 0;
+};
+
+// Sort objects by 'Date' key
+function sort_obj_by_date(a,b) { 
+    return new Date(a.Date).getTime() - new Date(b.Date).getTime()
 }
 
 // Cleaning csv file
@@ -36,13 +73,43 @@ function fixDataRow(d) {
 
 // Drawing the graph
 function drawBarGraph(svg, points) {
+  
     var date_array = getDateRange(points);
-    // console.log(typeof(date_array[0]));
-    // console.log(date_array[0].toDateString());
+    
+    date_array.sort(date_sort_asc);
+    // console.log(date_array)
+    
     var start_date = date_array[0];
     var end_date = date_array.pop()
+    
+    var north_apts = returnDataSet(points, "North", "Apartment");
+    north_apts.sort(sort_obj_by_date);
+
+    var central_apts = returnDataSet(points, "Central", "Apartment");
+    central_apts.sort(sort_obj_by_date);
+
+    var south_apts = returnDataSet(points, "South", "Apartment");
+    south_apts.sort(sort_obj_by_date);
+
+    var north_townh = returnDataSet(points, "North", "Townhouse");
+    north_townh.sort(sort_obj_by_date);
+    
+     var central_townh = returnDataSet(points, "Central", "Townhouse");
+    central_townh.sort(sort_obj_by_date);
+
+    var south_townh = returnDataSet(points, "South", "Townhouse");
+    south_townh.sort(sort_obj_by_date);
+
+     var north_det = returnDataSet(points, "North", "Detached");
+    north_det.sort(sort_obj_by_date);
+    
+     var central_det = returnDataSet(points, "Central", "Detached");
+    central_det.sort(sort_obj_by_date);
+
+    var south_det = returnDataSet(points, "South", "Detached");
+    south_det.sort(sort_obj_by_date);
+    
     var xScale = d3.time.scale().domain([start_date, end_date]).range([MARGINS.left, WIDTH - MARGINS.right]);
-    // var yScale = d3.scale.time().domain().range();
     
     // Define axes
     var xAxis = d3.svg.axis()
@@ -67,6 +134,37 @@ function drawBarGraph(svg, points) {
     .attr("class", "axis")
     .attr("transform", "translate(" + (MARGINS.left) + ",0)")
     .call(yAxis);
+    
+    var lineGen = d3.svg.line()
+    .x(function(d) {
+        return xScale(d.Date);
+    })
+    .y(function(d) {
+        return yScale(d.Households);
+    })
+    .interpolate("monotone"); // Interpolate gives us curves
+    
+    // Append line to visualization
+    function visAppend(data_set, colour, width) {
+        vis.append('svg:path')
+            .attr('d', lineGen(data_set))
+            .attr('stroke', colour)
+            .attr('stroke-width', width)
+            .attr('fill', 'none');
+    }
+
+    visAppend(north_apts, 'blue', 2);
+    visAppend(central_apts, 'blue', 2);
+    visAppend(south_apts, 'blue', 2);
+
+    visAppend(north_townh, 'red', 2);
+    visAppend(central_townh, 'red', 2);
+    visAppend(south_townh, 'red', 2);
+
+    visAppend(north_det, 'green', 2);
+    visAppend(central_det, 'green', 2);
+    visAppend(south_det, 'green', 2);
+    
 }
 
 d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Listings_D3.csv")
