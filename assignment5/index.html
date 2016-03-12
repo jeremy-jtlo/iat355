@@ -11,7 +11,15 @@
  
 <body>
 <!-- Tutorial ripped from http://code.tutsplus.com/tutorials/building-a-multi-line-chart-using-d3js--cms-22935 -->
-    <div>
+    <div class="centered">
+        <h1>Active Listings in Surrey</h1>
+        <ul>
+            <li>Blue: Apartments</li>
+            <li>Green: Detached homes</li>
+            <li>Red: Townhouses</li>
+        </ul>
+    </div>
+    <div class="centered">
         <input id="north" type="checkbox" name="region_check" value="North" checked>North</input>
         <input id="central" type="checkbox" name="region_check" value="Central" checked>Central</input>
         <input id="south" type="checkbox" name="region_check" value="South" checked>South</input>
@@ -28,8 +36,13 @@
         <div class="jumbotron">
             <svg id="visualisation" width="1000" height="500"></svg>
         </div>
+        &nbsp;
+        <div class="jumbotron">
+            <svg id="population" width="1000" height="500"></svg>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="practice2.js"></script>
+    <script src="vis2.js"></script>
 </body>
 </html>

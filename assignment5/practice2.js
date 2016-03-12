@@ -156,27 +156,28 @@ function drawBarGraph(svg, points) {
     .interpolate("monotone"); // Interpolate gives us curves
     
     // Append line to visualization
-    function visAppend(region, data_set, colour, width) {
+    function visAppend(region, data_set, type, width) {
         vis.append('svg:path')
-            .attr('class', region+' data-line '+colour)
+            .attr('class', region+' data-line '+type)
             .attr('d', lineGen(data_set))
             .attr('stroke-width', width)
             .attr('fill', 'none');
     }
 
     // Add all lines to our svg
-    visAppend('North', north_apts, 'blue', 2);
-    visAppend('Central', central_apts, 'blue', 2);
-    visAppend('South', south_apts, 'blue', 2);
+    visAppend('North', north_apts, 'apt', 2);
+    visAppend('Central', central_apts, 'apt', 2);
+    visAppend('South', south_apts, 'apt', 2);
 
-    visAppend('North', north_townh, 'red', 2);
-    visAppend('Central', central_townh, 'red', 2);
-    visAppend('South', south_townh, 'red', 2);
+    visAppend('North', north_townh, 'townh', 2);
+    visAppend('Central', central_townh, 'townh', 2);
+    visAppend('South', south_townh, 'townh', 2);
 
-    visAppend('North', north_det, 'green', 2);
-    visAppend('Central', central_det, 'green', 2);
-    visAppend('South', south_det, 'green', 2);
+    visAppend('North', north_det, 'det', 2);
+    visAppend('Central', central_det, 'det', 2);
+    visAppend('South', south_det, 'det', 2);
 
+    // jQuery to hide/reveal lines
     if ($('#north').prop('checked') == true){
         $('.North').show();
     } else {

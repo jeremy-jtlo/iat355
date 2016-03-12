@@ -1,3 +1,7 @@
+.centered {
+    width: 100%;
+    text-align: center;
+}
 .axis path {
     fill: none;
     stroke: #777;
@@ -8,23 +12,20 @@
     font-size: 13px;
 }
 
-.data-line.blue {
+.data-line.apt {
     stroke: blue;
 }
 
-.data-line.green {
+.data-line.townh {
+    stroke: red;
+}
+
+.data-line.det {
     stroke: green;
 }
 
-.data-line.red {
-    stroke: red;
-}
 
 .data-line:hover, .data-line:active {
     stroke: black;
     stroke-width: 5;
-}
-
-.do-not-display {
-    stroke-width: 0;
 }
