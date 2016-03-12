@@ -71,6 +71,12 @@ function fixDataRow(d) {
     return d;
 }
 
+function setupFilters(svg, points){
+  d3.selectAll("input[name='region_check']").on("click", function(){
+    drawBarGraph(svg, points);
+  });
+}
+
 // Drawing the graph
 function drawBarGraph(svg, points) {
   
@@ -123,7 +129,12 @@ function drawBarGraph(svg, points) {
     .scale(yScale)
     .orient('left')
     .tickPadding(8);
-            
+
+    // Filtering
+    var selectedRegionSelection = d3.selectAll("input[name='region_check']:checked");
+    var checked_boxes = selectedRegionSelection[0];
+    console.log(checked_boxes);
+
     // Append axes        
     vis.append("svg:g")
     .attr("class", "axis")
@@ -145,25 +156,29 @@ function drawBarGraph(svg, points) {
     .interpolate("monotone"); // Interpolate gives us curves
     
     // Append line to visualization
-    function visAppend(data_set, colour, width) {
+    function visAppend(region, data_set, colour, width) {
         vis.append('svg:path')
-            .attr('class', 'data-line '+colour)
+            .attr('class', region+' data-line '+colour)
             .attr('d', lineGen(data_set))
             .attr('stroke-width', width)
             .attr('fill', 'none');
     }
 
-    visAppend(north_apts, 'blue', 2);
-    visAppend(central_apts, 'blue', 2);
-    visAppend(south_apts, 'blue', 2);
+    // Add all lines to our svg
+    visAppend('North', north_apts, 'blue', 2);
+    visAppend('Central', central_apts, 'blue', 2);
+    visAppend('South', south_apts, 'blue', 2);
 
-    visAppend(north_townh, 'red', 2);
-    visAppend(central_townh, 'red', 2);
-    visAppend(south_townh, 'red', 2);
+    visAppend('North', north_townh, 'red', 2);
+    visAppend('Central', central_townh, 'red', 2);
+    visAppend('South', south_townh, 'red', 2);
 
-    visAppend(north_det, 'green', 2);
-    visAppend(central_det, 'green', 2);
-    visAppend(south_det, 'green', 2);
+    visAppend('North', north_det, 'green', 2);
+    visAppend('Central', central_det, 'green', 2);
+    visAppend('South', south_det, 'green', 2);
+
+    $('.North').hide();
+    $('.South').hide();
     
 }
 
@@ -175,5 +190,6 @@ d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Lis
     }else{
         var svg = d3.select("svg");
         drawBarGraph(svg, points);
+        setupFilters(svg, points);
     }
 });

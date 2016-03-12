@@ -20,7 +20,11 @@
     stroke: red;
 }
 
-.data-line:hover {
+.data-line:hover, .data-line:active {
     stroke: black;
     stroke-width: 5;
+}
+
+.do-not-display {
+    stroke-width: 0;
 }
