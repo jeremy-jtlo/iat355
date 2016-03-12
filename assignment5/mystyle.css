@@ -4,6 +4,6 @@
     shape-rendering: crispEdges;
 }
 .axis text {
-    font-family: Lato;
+    font-family: Lato, 'Open Sans', sans-serif;
     font-size: 13px;
 }

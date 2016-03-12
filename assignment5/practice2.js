@@ -39,19 +39,34 @@ function drawBarGraph(svg, points) {
     var date_array = getDateRange(points);
     // console.log(typeof(date_array[0]));
     // console.log(date_array[0].toDateString());
-    var xScale = d3.time.scale().domain(date_array).range([MARGINS.left, WIDTH - MARGINS.right]);
+    var start_date = date_array[0];
+    var end_date = date_array.pop()
+    var xScale = d3.time.scale().domain([start_date, end_date]).range([MARGINS.left, WIDTH - MARGINS.right]);
     // var yScale = d3.scale.time().domain().range();
     
     // Define axes
     var xAxis = d3.svg.axis()
             .scale(xScale);
             
+    var yScale = d3.scale.linear()
+    .domain([0, d3.max(points, function(d) { return d.Households; })])
+    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+
+    var yAxis = d3.svg.axis()
+    .scale(yScale)
+    .orient('left')
+    .tickPadding(8);
+            
     // Append axes        
     vis.append("svg:g")
     .attr("class", "axis")
     .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
     .call(xAxis);
-
+    
+     vis.append("svg:g")
+    .attr("class", "axis")
+    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+    .call(yAxis);
 }
 
 d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Listings_D3.csv")
