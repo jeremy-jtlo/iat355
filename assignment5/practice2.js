@@ -11,7 +11,7 @@ http://stackoverflow.com/questions/19430561/how-to-sort-a-javascript-array-of-ob
 */
 
 $( document ).ready(function() {
-    console.log( "ready!" );
+    console.log( "Practice2.js is ready." );
 });
 
 var vis = d3.select("#visualisation"),
@@ -179,24 +179,24 @@ function drawLineGraph(svg, points) {
 
     if ($('#north').prop('checked') == true){
         $('.North').show();
-        console.log("NORTH");
+        // console.log("NORTH");
     } else {
         $('.North').hide();
-        console.log("NORTH");
+        // console.log("NORTH");
     }
     if ($('#central').prop('checked') == true){
         $('.Central').show();
-        console.log("CENTRAL");
+        // console.log("CENTRAL");
     } else {
         $('.Central').hide();
-        console.log("CENTRAL");
+        // console.log("CENTRAL");
     }
     if ($('#south').prop('checked') == true){
         $('.South').show();
-        console.log("SOUTH");
+        // console.log("SOUTH");
     } else {
         $('.South').hide();
-        console.log("SOUTH");
+        // console.log("SOUTH");
     }
     
 }

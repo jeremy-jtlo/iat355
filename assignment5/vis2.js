@@ -1,3 +1,7 @@
+$( document ).ready(function() {
+    console.log( "vis2.js is ready." );
+});
+
 var population_vis = d3.select("#population"),
     WIDTH = 1000,
     HEIGHT = 500,
