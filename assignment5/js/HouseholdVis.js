@@ -165,17 +165,17 @@ function drawLineGraph(svg, points) {
     }
 
     // Add all lines to our svg
-    visAppend('North', north_apts, 'apt', 2);
-    visAppend('Central', central_apts, 'apt', 2);
-    visAppend('South', south_apts, 'apt', 2);
+    visAppend('North', north_apts, 'apt1', 2);
+    visAppend('Central', central_apts, 'apt2', 2);
+    visAppend('South', south_apts, 'apt3', 2);
 
-    visAppend('North', north_townh, 'townh', 2);
-    visAppend('Central', central_townh, 'townh', 2);
-    visAppend('South', south_townh, 'townh', 2);
+    visAppend('North', north_townh, 'townh1', 2);
+    visAppend('Central', central_townh, 'townh2', 2);
+    visAppend('South', south_townh, 'townh3', 2);
 
-    visAppend('North', north_det, 'det', 2);
-    visAppend('Central', central_det, 'det', 2);
-    visAppend('South', south_det, 'det', 2);
+    visAppend('North', north_det, 'det1', 2);
+    visAppend('Central', central_det, 'det2', 2);
+    visAppend('South', south_det, 'det3', 2);
 
     if ($('#north').prop('checked') == true){
         $('.North').show();

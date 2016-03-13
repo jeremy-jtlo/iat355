@@ -17,16 +17,34 @@ ul {
     font-size: 13px;
 }
 
-.data-line.apt {
-    stroke: blue;
+.data-line.apt1 {
+    stroke: #000066;
+}
+.data-line.apt2 {
+    stroke: #0066CC;
+}
+.data-line.apt3 {
+    stroke: #0033FF;
 }
 
-.data-line.townh {
-    stroke: red;
+.data-line.townh1 {
+    stroke: rgb(72,0,0);
+}
+.data-line.townh2 {
+    stroke: rgb(184,0,0);
+}
+.data-line.townh3 {
+    stroke: rgb(222,0,0);
 }
 
-.data-line.det {
-    stroke: green;
+.data-line.det1 {
+    stroke: #006600;
+}
+.data-line.det2 {
+    stroke: #009900;
+}
+.data-line.det3 {
+    stroke: #00CC66;
 }
 
 .North {
