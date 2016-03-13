@@ -10,6 +10,10 @@ http://stackoverflow.com/questions/19430561/how-to-sort-a-javascript-array-of-ob
 
 */
 
+$( document ).ready(function() {
+    console.log( "ready!" );
+});
+
 var vis = d3.select("#visualisation"),
     WIDTH = 1000,
     HEIGHT = 500,
