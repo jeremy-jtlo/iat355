@@ -2,6 +2,11 @@
     width: 100%;
     text-align: center;
 }
+
+ul {
+    list-style-type: none;
+}
+
 .axis path {
     fill: none;
     stroke: #777;
@@ -22,6 +27,18 @@
 
 .data-line.det {
     stroke: green;
+}
+
+.North {
+    stroke: purple;
+}
+
+.Central {
+    stroke: gray;
+}
+
+.South {
+    stroke: orange;
 }
 
 

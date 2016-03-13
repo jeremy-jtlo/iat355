@@ -26,7 +26,7 @@ function getDateRange(d){
 
     // Loop
     for (var i=0; i<d.length; i++){
-        date_object = d[i]["Date"];
+        date_object = new Date(d[i]["Date"]);
         // console.log(date_object);
         date_list.push(date_object);
     }
@@ -72,13 +72,14 @@ function fixDataRow(d) {
 }
 
 function setupFilters(svg, points){
-  d3.selectAll("input[name='region_check']").on("click", function(){
-    drawBarGraph(svg, points);
-  });
+    // Listen to clicks on checkboxes
+    d3.selectAll("input[name='region_check']").on("click", function(){
+        drawLineGraph(svg, points);
+    });
 }
 
 // Drawing the graph
-function drawBarGraph(svg, points) {
+function drawLineGraph(svg, points) {
   
     var date_array = getDateRange(points);
     
@@ -130,18 +131,13 @@ function drawBarGraph(svg, points) {
     .orient('left')
     .tickPadding(8);
 
-    // Filtering
-    var selectedRegionSelection = d3.selectAll("input[name='region_check']:checked");
-    var checked_boxes = selectedRegionSelection[0];
-    console.log(checked_boxes);
-
     // Append axes        
     vis.append("svg:g")
     .attr("class", "axis")
     .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
     .call(xAxis);
     
-     vis.append("svg:g")
+    vis.append("svg:g")
     .attr("class", "axis")
     .attr("transform", "translate(" + (MARGINS.left) + ",0)")
     .call(yAxis);
@@ -158,7 +154,7 @@ function drawBarGraph(svg, points) {
     // Append line to visualization
     function visAppend(region, data_set, type, width) {
         vis.append('svg:path')
-            .attr('class', region+' data-line '+type)
+            .attr('class', region + ' data-line ' + type)
             .attr('d', lineGen(data_set))
             .attr('stroke-width', width)
             .attr('fill', 'none');
@@ -177,21 +173,26 @@ function drawBarGraph(svg, points) {
     visAppend('Central', central_det, 'det', 2);
     visAppend('South', south_det, 'det', 2);
 
-    // jQuery to hide/reveal lines
     if ($('#north').prop('checked') == true){
         $('.North').show();
+        console.log("NORTH");
     } else {
         $('.North').hide();
+        console.log("NORTH");
     }
     if ($('#central').prop('checked') == true){
         $('.Central').show();
+        console.log("CENTRAL");
     } else {
         $('.Central').hide();
+        console.log("CENTRAL");
     }
     if ($('#south').prop('checked') == true){
         $('.South').show();
+        console.log("SOUTH");
     } else {
         $('.South').hide();
+        console.log("SOUTH");
     }
     
 }
@@ -202,8 +203,8 @@ d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Lis
     if(error){
         console.error("An error happened while opening the file. "+ error);
     }else{
-        var svg = d3.select("svg");
-        drawBarGraph(svg, points);
+        var svg = d3.select("svg#visualisation ");
+        drawLineGraph(svg, points);
         setupFilters(svg, points);
     }
 });
