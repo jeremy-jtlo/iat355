@@ -54,6 +54,12 @@ function drawPairedBars(svg, points) {
 
     var labelArea = 160;
 
+    var date_array = getDateRange(points);    
+    date_array.sort(date_sort_asc);
+
+    var start_date = date_array[0];
+    var end_date = date_array.pop()
+
     var chart,
         width = 400,
         bar_height = 20,
