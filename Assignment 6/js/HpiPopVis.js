@@ -19,7 +19,7 @@ function getDateRange(d){
 
     // Loop
     for (var i=0; i<d.length; i++){
-        date_object = new Date(d[i]["Date"]);
+        date_object = new Date(d[i]["Year"]);
         // console.log(date_object);
         date_list.push(date_object);
     }
@@ -39,8 +39,7 @@ function sort_obj_by_date(a,b) {
 }
 
 function fixDataRow(d) {
-    var format = d3.time.format("%Y-%m-%d");
-    d["Date"] = format.parse(d["Date"]);
+    d["Year"] = new Date(d["Year"]);
     d["HPI"] = +d["HPI"];
     d["Income"] = +d["Income"];
 
@@ -48,6 +47,10 @@ function fixDataRow(d) {
 }
 
 function drawPairedBars(svg, points) {
+
+    date_list = getDateRange(points);
+    date_list.sort(date_sort_asc);
+    console.log(date_list);
 
     var labelArea = 160;
 
