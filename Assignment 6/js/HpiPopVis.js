@@ -50,7 +50,7 @@ function drawPairedBars(svg, points) {
 
     date_list = getDateRange(points);
     date_list.sort(date_sort_asc);
-    console.log(date_list);
+    // console.log(date_list);
 
     var labelArea = 160;
 
@@ -90,7 +90,7 @@ function drawPairedBars(svg, points) {
     var yPosByIndex = function(d, index){ return y(index); } 
 
     chart.selectAll("rect.left")
-        .data(d.HPI)
+        .data(points.HPI)
         .enter().append("rect")
         .attr("x", function(pos) { return width - xFrom(pos); })
         .attr("y", yPosByIndex)
