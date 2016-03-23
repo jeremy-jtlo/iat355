@@ -77,9 +77,19 @@ function fixDataRow(d) {
 
 function setupFilters(svg, points){
     // Listen to clicks on checkboxes
-    d3.selectAll("input[name='region_check']").on("click", function(){
-        drawLineGraph(svg, points);
+
+    $('input').click(function() {
+        var $this = $(this);
+        // $this will contain a reference to the checkbox   
+        if ($this.is(':checked')) {
+            // the checkbox was checked 
+            drawLineGraph(svg, points);
+        } else {
+            // the checkbox was unchecked
+            drawLineGraph(svg, points);
+        }
     });
+
 }
 
 // Drawing the graph
