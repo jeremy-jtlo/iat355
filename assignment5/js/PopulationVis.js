@@ -22,7 +22,10 @@ function fixPopRow(d) {
 
 function popFilters(svg, points){
     // Listen to clicks on checkboxes
-    d3.selectAll("input[name='region_check']").on("click", function(){
+    // d3.selectAll("input[name='region_check']").on("click", function(){
+    //     drawPopGraph(svg, points);
+    // });
+    $('input').click(function() {
         drawPopGraph(svg, points);
     });
 }
