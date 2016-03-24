@@ -137,27 +137,30 @@ function drawLineGraph(svg, points) {
 
     enterSelection.append("rect")
   .attr({
-      x: function(d,i)
-      {  
-      console.log(d.Income);    
-        return xScale(d.Income);
-      }, //adds the offsets based on individual data
+    x:50,
+      // x: function(d,i)
+      // {  
+      // console.log(d.Income);    
+      //   return xScale;
+      // }, //adds the offsets based on individual data
 
       y: function(d,i)
       {
         return yScale(d.Year); //moves the y position of each bar to the x-axis
       },
 
-      height: function(d,i)
+      width: function(d,i)
         {          
-          return (yScale(0) - yScale(d.Year)); //inverts the bars so that it is facing upwards
-        },
+          return (xScale(d.Income)); //inverts the bars so that it is facing upwards
+        }, 
+
+      height: 5
   })
     
     console.log("End of drawlinegraph function")
 }
 
-d3.csv("http://www.sfu.ca/~erniet/IAT355/Assignment%206/csv/SurreyHPIIncome.csv")
+d3.csv("http://www.sfu.ca/~erniet/IAT355/Assignment%206/csv/SurreyHPIIncomeTest.csv")
 .row(fixDataRow)
 .get(function(error, points){
     if(error){
