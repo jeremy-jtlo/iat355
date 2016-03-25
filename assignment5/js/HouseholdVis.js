@@ -12,17 +12,8 @@ http://stackoverflow.com/questions/19430561/how-to-sort-a-javascript-array-of-ob
 
 $( document ).ready(function() {
     console.log( "Practice2.js is ready." );
+    main();
 });
-
-var vis = d3.select("#visualisation"),
-    WIDTH = 1000,
-    HEIGHT = 500,
-    MARGINS = {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 50
-    };
 
 // Returns a list of date objects from input data
 function getDateRange(d){
@@ -39,6 +30,36 @@ function getDateRange(d){
     return date_list;
 }
 
+// Sort dates in ascending order when called from sort()
+var date_sort_asc = function (date1, date2) {
+    if (date1 > date2) return 1;
+    if (date1 < date2) return -1;
+    return 0;
+};
+
+// Sort objects by 'Date' key
+function sort_obj_by_date(a,b) { 
+    return new Date(a.Date).getTime() - new Date(b.Date).getTime()
+}
+
+function main () {
+// Responsive width/height
+
+resp_width = $("#first_vis").width();
+resp_height = 500;
+
+var vis = d3.select("#visualisation").attr("width", resp_width).attr("height", resp_height),
+    WIDTH = 1000,
+    HEIGHT = 500,
+    MARGINS = {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 50
+    };
+
+
+
 // Returns a list of entries matching a REGION and LISTING TYPE
 function returnDataSet(d, desired_region, desired_type){
     var listing_list = []
@@ -54,17 +75,7 @@ function returnDataSet(d, desired_region, desired_type){
     return listing_list;
 }
 
-// Sort dates in ascending order when called from sort()
-var date_sort_asc = function (date1, date2) {
-    if (date1 > date2) return 1;
-    if (date1 < date2) return -1;
-    return 0;
-};
 
-// Sort objects by 'Date' key
-function sort_obj_by_date(a,b) { 
-    return new Date(a.Date).getTime() - new Date(b.Date).getTime()
-}
 
 // Cleaning csv file
 function fixDataRow(d) {
@@ -211,7 +222,7 @@ function drawLineGraph(svg, points) {
     
 }
 
-d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Listings_D3.csv")
+create_graphs = d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Listings_D3.csv")
 .row(fixDataRow)
 .get(function(error, points){
     if(error){
@@ -222,3 +233,4 @@ d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Lis
         setupFilters(svg, points);
     }
 });
+}
