@@ -1,16 +1,7 @@
 $( document ).ready(function() {
     console.log( "vis2.js is ready." );
+    popMain();
 });
-
-var population_vis = d3.select("#population"),
-    WIDTH = 1000,
-    HEIGHT = 500,
-    MARGINS = {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 50
-    };
 
 // Row fixer for populations. Has different data than active listings.
 function fixPopRow(d) {
@@ -22,9 +13,7 @@ function fixPopRow(d) {
 
 function popFilters(svg, points){
     // Listen to clicks on checkboxes
-    // d3.selectAll("input[name='region_check']").on("click", function(){
-    //     drawPopGraph(svg, points);
-    // });
+
     $('input').click(function() {
         drawPopGraph(svg, points);
     });
@@ -43,8 +32,21 @@ function returnPopulationSet(d, desired_region){
     return population_list;
 }
 
+function popMain() {
 // Draw the graph of population
 function drawPopGraph(svg, points){
+    resp_width = $("#population_vis").width();
+    resp_height = 500;
+
+    var population_vis = d3.select("#population").attr("width", resp_width).attr("height", resp_height),
+        WIDTH = 1000,
+        HEIGHT = 500,
+        MARGINS = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 50
+        };
 
     var date_array = getDateRange(points);
     date_array.sort(date_sort_asc);
@@ -113,3 +115,4 @@ d3.csv("http://www.sfu.ca/~jtlo/iat355/data/population.csv")
         popFilters(svg, points);
     }
 });
+} // end of popMain()
