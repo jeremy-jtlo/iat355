@@ -70,6 +70,10 @@ function fixDataRow(d) {
     d["Year"] = new Date(d["Year"]);
     d["Income"] = +d["Income"];
 
+
+    d["HPI"] = parseFloat(d["HPI"].replace(',',''));
+    // d["HPI"] = +d["HPI"];
+
     return d;
 
 }
@@ -103,11 +107,11 @@ function drawLineGraph(svg, points) {
     
     var xScale = d3.scale.linear()
     .domain([0, d3.max(points, function(d) { return d.Income; })])    
-    .range([MARGINS.left, WIDTH - MARGINS.right]);
+    .range([WIDTH/2 - MARGINS.right, MARGINS.left]);
 
      var rxScale = d3.scale.linear()
-    .domain([0, d3.max(points, function(d) { return d.Household; })])    
-    .range([MARGINS.right, MARGINS.left - WIDTH]);    
+    .domain([0, d3.max(points, function(d) { return d.HPI; })])    
+    .range([WIDTH/2 , WIDTH - MARGINS.right]);    
 
     // Define axes
     var xAxis = d3.svg.axis()
@@ -131,12 +135,12 @@ function drawLineGraph(svg, points) {
     // Append axes        
     vis.append("svg:g")
     .attr("class", "axis")
-    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+    .attr("transform", "translate(20," + (HEIGHT - MARGINS.bottom) + ")")
     .call(xAxis);
     
     vis.append("svg:g")
     .attr("class", "axis")
-    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+    .attr("transform", "translate("  + (WIDTH/2) + ",0)")
     .call(yAxis);
 
     vis.append("svg:g")
@@ -146,7 +150,7 @@ function drawLineGraph(svg, points) {
 
     enterSelection.append("rect")
       .attr({
-        x:50,     
+        x: WIDTH/2,     
 
           y: function(d,i)
           {
@@ -155,30 +159,32 @@ function drawLineGraph(svg, points) {
 
           width: function(d,i)
             {          
-              return (xScale(d.Income)); //inverts the bars so that it is facing upwards
+              // return (xScale(d.Income)); //inverts the bars so that it is facing upwards
+              return Math.abs(xScale(d.Income) - xScale(0));
             }, 
 
           height: 5
       })
         
-        console.log("End of drawlinegraph function");
+    //     console.log("End of drawlinegraph function");
 
-    enterSelection.append("rect")
-      .attr({
-        x:50,     
+    // enterSelection.append("rect")
+    //   .attr({
+    //     x:WIDTH/2,     
 
-          y: function(d,i)
-          {
-            return yScale(d.Year); //moves the y position of each bar to the x-axis
-          },
+    //       y: function(d,i)
+    //       {
+    //         return yScale(d.Year); //moves the y position of each bar to the x-axis
+    //       },
 
-          width: function(d,i)
-            {          
-              return (rxScale(d.Household)); //inverts the bars so that it is facing upwards
-            }, 
+    //       width: function(d,i)
+    //         {          
+    //           return (rxScale(d.HPI)/2); //inverts the bars so that it is facing upwards
+    //           // return Math.abs(rxScale(d.HPI) - rxScale(0));
+    //         }, 
 
-          height: 5
-      })
+    //       height: 5
+    //   })
         
         console.log("End of drawlinegraph function");
     }
