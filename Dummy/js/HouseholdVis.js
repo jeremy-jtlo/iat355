@@ -31,7 +31,6 @@ function getDateRange(d){
     // Loop
     for (var i=0; i<d.length; i++){
         date_object = new Date(d[i]["Year"]);
-        // console.log(date_object);
         date_list.push(date_object);
     }
 
@@ -70,7 +69,6 @@ function sort_obj_by_date(a,b) {
 function fixDataRow(d) {
     d["Year"] = new Date(d["Year"]);
     d["Income"] = +d["Income"];
-    console.log(d.Year);
 
     return d;
 
@@ -99,7 +97,6 @@ function drawLineGraph(svg, points) {
     var date_array = getDateRange(points);
     
     date_array.sort(date_sort_asc);
-    // console.log(date_array)
     
     var start_date = date_array[0];
     var end_date = date_array.pop();    
@@ -107,10 +104,17 @@ function drawLineGraph(svg, points) {
     var xScale = d3.scale.linear()
     .domain([0, d3.max(points, function(d) { return d.Income; })])    
     .range([MARGINS.left, WIDTH - MARGINS.right]);
+
+     var rxScale = d3.scale.linear()
+    .domain([0, d3.max(points, function(d) { return d.Household; })])    
+    .range([MARGINS.right, MARGINS.left - WIDTH]);    
+
     // Define axes
     var xAxis = d3.svg.axis()
             .scale(xScale);
 
+    var rxAxis = d3.svg.axis()
+            .scale(rxScale)
             
     var yScale =  d3.time.scale().domain([start_date, end_date]).range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
 
@@ -121,8 +125,8 @@ function drawLineGraph(svg, points) {
     .tickPadding(8);
 
     var enterSelection = svg.selectAll("rect")
-  .data(points)
-  .enter();
+      .data(points)
+      .enter();
 
     // Append axes        
     vis.append("svg:g")
@@ -133,32 +137,51 @@ function drawLineGraph(svg, points) {
     vis.append("svg:g")
     .attr("class", "axis")
     .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-    .call(yAxis); 
+    .call(yAxis);
+
+    vis.append("svg:g")
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+    .call(rxAxis); 
 
     enterSelection.append("rect")
-  .attr({
-    x:50,
-      // x: function(d,i)
-      // {  
-      // console.log(d.Income);    
-      //   return xScale;
-      // }, //adds the offsets based on individual data
+      .attr({
+        x:50,     
 
-      y: function(d,i)
-      {
-        return yScale(d.Year); //moves the y position of each bar to the x-axis
-      },
+          y: function(d,i)
+          {
+            return yScale(d.Year); //moves the y position of each bar to the x-axis
+          },
 
-      width: function(d,i)
-        {          
-          return (xScale(d.Income)); //inverts the bars so that it is facing upwards
-        }, 
+          width: function(d,i)
+            {          
+              return (xScale(d.Income)); //inverts the bars so that it is facing upwards
+            }, 
 
-      height: 5
-  })
-    
-    console.log("End of drawlinegraph function")
-}
+          height: 5
+      })
+        
+        console.log("End of drawlinegraph function");
+
+    enterSelection.append("rect")
+      .attr({
+        x:50,     
+
+          y: function(d,i)
+          {
+            return yScale(d.Year); //moves the y position of each bar to the x-axis
+          },
+
+          width: function(d,i)
+            {          
+              return (rxScale(d.Household)); //inverts the bars so that it is facing upwards
+            }, 
+
+          height: 5
+      })
+        
+        console.log("End of drawlinegraph function");
+    }
 
 d3.csv("http://www.sfu.ca/~erniet/IAT355/Assignment%206/csv/SurreyHPIIncomeTest.csv")
 .row(fixDataRow)
