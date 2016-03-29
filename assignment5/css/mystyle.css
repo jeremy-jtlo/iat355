@@ -22,6 +22,9 @@ Medium - #fdae6b
 Dark - #e6550d
 
 */
+body {
+    background-color: #C9C9C9;
+}
 
 .centered {
     width: 100%;
@@ -98,14 +101,17 @@ Dark - #e6550d
 
 .North {
     stroke: #3182bd;
+    color: #3182bd;
 }
 
 .Central {
     stroke: #31a354;
+    color: #31a354;
 }
 
 .South {
     stroke: #e6550d;
+    color: #e6550d;
 }
 
 

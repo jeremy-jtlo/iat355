@@ -46,13 +46,13 @@ function main () {
 // Responsive width/height
 
 resp_width = $("#first_vis").width();
-resp_height = 500;
+resp_height = $("#first_vis").height();
 
 var vis = d3.select("#visualisation")
         .attr("width", resp_width)
         .attr("height", resp_height),
-    WIDTH = 1000,
-    HEIGHT = 500,
+    WIDTH = resp_width,
+    HEIGHT = resp_height,
     MARGINS = {
         top: 20,
         right: 20,
@@ -61,10 +61,10 @@ var vis = d3.select("#visualisation")
     };
 
 // Background rectangle
-vis.append("rect")
-    .attr("width", "100%")
-    .attr("height", "100%")
-    .attr("fill", "#C9C9C9");
+// vis.append("rect")
+//     .attr("width", "100%")
+//     .attr("height", "100%")
+//     .attr("fill", "#C9C9C9");
 
 // Returns a list of entries matching a REGION and LISTING TYPE
 function returnDataSet(d, desired_region, desired_type){
@@ -156,6 +156,7 @@ function drawLineGraph(svg, points) {
     var yScale = d3.scale.linear()
     .domain([0, d3.max(points, function(d) { return d.Households; })])
     .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+    console.log(HEIGHT);
 
     var yAxis = d3.svg.axis()
     .scale(yScale)

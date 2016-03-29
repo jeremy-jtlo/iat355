@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- link to css -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/justified-nav/justified-nav.css" rel="stylesheet">
+    <link href="css/mystyle.css" rel="stylesheet">
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <meta charset="utf-8">
+</head>
+ 
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>A Look at Housing in Surrey</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Measuring population, HPI, and listings</h3>
+                <p>
+                <!-- This is unplanned it really just happens. Be careful. You can always add more - but you can't take it away. Talk to trees, look at the birds. Whatever it takes. This is a happy place, little squirrels live here and play. It's life. It's interesting. It's fun.
+
+                We don't want to set these clouds on fire. Almost everything is going to happen for you automatically - you don't have to spend any time working or worrying. Everything's not great in life, but we can still find beauty in it. Let's give him a friend too. Everybody needs a friend. Absolutely no pressure. You are just a whisper floating across a mountain.
+
+                Happy painting, God bless. Little trees and bushes grow however makes them happy. That's a crooked tree. We'll send him to Washington. -->
+                
+                Will new graduates in the tech and design industries be able to secure a home for themselves in the Surrey region in the years to come?
+                </p>
+                <p>
+                    <em class="North">North Surrey (Delta) data is Blue.</em><br>
+                    <em class="Central">Central Surrey data is Green.</em><br>
+                    <em class="South">South Surrey (Whiterock) data is Orange.</em>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h3>Controls</h3>
+                <p>
+                Click the check boxes to alter the graphs.
+                </p>
+                <input id="north" type="checkbox" name="region_check" value="North" checked>North</input>
+                <input id="central" type="checkbox" name="region_check" value="Central" checked>Central</input>
+                <input id="south" type="checkbox" name="region_check" value="South" checked>South</input>
+            </div>
+        </div> <!-- end of .row -->
+        <div class="row">
+            <div id="first_vis" class="col-md-12">
+                <h2>Active Real Estate Listings (2010-2014)</h2>
+                <p>
+                Light lines are detached homes.<br>
+                Medium lines are apartments.<br>
+                Dark lines are townhouses.
+                </p>
+                <svg id="visualisation"></svg>
+            </div>
+        </div> <!-- end of .row -->
+        <div class="row">
+            <div id="population_vis" class="col-md-12">
+                <h2>Population Estimates for Surrey (2004-2014)</h2>
+                <svg id="population"></svg>
+            </div>
+        </div> <!-- end of .row -->
+    </div> <!-- end of .container -->
+
+    <!-- include libraries and data -->
+    <script src="lib/jquery-2.2.1.min.js"></script>
+    <script src="js/HouseholdVis.js"></script>
+    <script src="js/PopulationVis.js"></script>
+</body>
+</html>

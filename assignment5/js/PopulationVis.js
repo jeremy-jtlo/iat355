@@ -36,11 +36,11 @@ function popMain() {
 // Draw the graph of population
 function drawPopGraph(svg, points){
     resp_width = $("#population_vis").width();
-    resp_height = 500;
+    resp_height = $("#population_vis").height();
 
     var population_vis = d3.select("#population").attr("width", resp_width).attr("height", resp_height),
-        WIDTH = 1000,
-        HEIGHT = 500,
+        WIDTH = resp_width,
+        HEIGHT = resp_height,
         MARGINS = {
             top: 20,
             right: 20,
