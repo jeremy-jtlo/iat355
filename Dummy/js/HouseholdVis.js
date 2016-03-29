@@ -150,7 +150,8 @@ function drawLineGraph(svg, points) {
 
     enterSelection.append("rect")
       .attr({
-        x: WIDTH/2,     
+        // x: WIDTH/2,     
+        x: function(d) { return xScale(d.Income) + 20; },
 
           y: function(d,i)
           {
@@ -161,30 +162,31 @@ function drawLineGraph(svg, points) {
             {          
               // return (xScale(d.Income)); //inverts the bars so that it is facing upwards
               return Math.abs(xScale(d.Income) - xScale(0));
+              // return xScale(d.Income);
             }, 
 
           height: 5
       })
         
-    //     console.log("End of drawlinegraph function");
+        console.log("End of drawlinegraph function");
 
-    // enterSelection.append("rect")
-    //   .attr({
-    //     x:WIDTH/2,     
+    enterSelection.append("rect")
+      .attr({
+        x:WIDTH/2,     
 
-    //       y: function(d,i)
-    //       {
-    //         return yScale(d.Year); //moves the y position of each bar to the x-axis
-    //       },
+          y: function(d,i)
+          {
+            return yScale(d.Year); //moves the y position of each bar to the x-axis
+          },
 
-    //       width: function(d,i)
-    //         {          
-    //           return (rxScale(d.HPI)/2); //inverts the bars so that it is facing upwards
-    //           // return Math.abs(rxScale(d.HPI) - rxScale(0));
-    //         }, 
+          width: function(d,i)
+            {          
+              return (rxScale(d.HPI)/2); //inverts the bars so that it is facing upwards
+              // return Math.abs(rxScale(d.HPI) - rxScale(0));
+            }, 
 
-    //       height: 5
-    //   })
+          height: 5
+      })
         
         console.log("End of drawlinegraph function");
     }
