@@ -1,3 +1,28 @@
+/*
+== Colour Guide ==
+http://colorbrewer2.org/
+
+Light - Detached Homes
+Medium - Apartments
+Dark - Townhouses
+
+NORTH (Blue)
+Light - #deebf7
+Medium - #9ecae1
+Dark - #3182bd
+
+CENTRAL (Green)
+Light - #e5f5e0
+Medium - #a1d99b
+Dark - #31a354
+
+SOUTH (Orange)
+Light - #fee6ce
+Medium - #fdae6b
+Dark - #e6550d
+
+*/
+
 .centered {
     width: 100%;
     text-align: center;
@@ -17,46 +42,70 @@ ul {
     font-size: 13px;
 }
 
-.data-line.apt1 {
-    stroke: #000066;
-}
-.data-line.apt2 {
-    stroke: #0066CC;
-}
-.data-line.apt3 {
-    stroke: #0033FF;
-}
-
-.data-line.townh1 {
-    stroke: rgb(72,0,0);
-}
-.data-line.townh2 {
-    stroke: rgb(184,0,0);
-}
-.data-line.townh3 {
-    stroke: rgb(222,0,0);
+/*
+NORTH (Blue)
+Light - #deebf7
+Medium - #9ecae1
+Dark - #3182bd
+*/
+.North.data-line.det{
+    stroke: #deebf7;
 }
 
-.data-line.det1 {
-    stroke: #006600;
+.North.data-line.apt{
+    stroke: #9ecae1;
 }
-.data-line.det2 {
-    stroke: #009900;
+
+.North.data-line.townh{
+    stroke: #3182bd;
 }
-.data-line.det3 {
-    stroke: #00CC66;
+
+/*
+CENTRAL (Green)
+Light - #e5f5e0
+Medium - #a1d99b
+Dark - #31a354
+*/
+.Central.data-line.det{
+    stroke: #e5f5e0;
+}
+
+.Central.data-line.apt{
+    stroke: #a1d99b;
+}
+
+.Central.data-line.townh{
+    stroke: #31a354;
+}
+
+/*
+SOUTH (Orange)
+Light - #fee6ce
+Medium - #fdae6b
+Dark - #e6550d
+*/
+.South.data-line.det{
+    stroke: #fee6ce;
+}
+
+.South.data-line.apt {
+    stroke: #fdae6b;
+}
+
+.South.data-line.townh {
+    stroke: #e6550d;
 }
 
 .North {
-    stroke: purple;
+    stroke: #3182bd;
 }
 
 .Central {
-    stroke: gray;
+    stroke: #31a354;
 }
 
 .South {
-    stroke: orange;
+    stroke: #e6550d;
 }
 
 

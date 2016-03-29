@@ -48,7 +48,9 @@ function main () {
 resp_width = $("#first_vis").width();
 resp_height = 500;
 
-var vis = d3.select("#visualisation").attr("width", resp_width).attr("height", resp_height),
+var vis = d3.select("#visualisation")
+        .attr("width", resp_width)
+        .attr("height", resp_height),
     WIDTH = 1000,
     HEIGHT = 500,
     MARGINS = {
@@ -58,7 +60,11 @@ var vis = d3.select("#visualisation").attr("width", resp_width).attr("height", r
         left: 50
     };
 
-
+// Background rectangle
+vis.append("rect")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("fill", "#C9C9C9");
 
 // Returns a list of entries matching a REGION and LISTING TYPE
 function returnDataSet(d, desired_region, desired_type){
@@ -186,17 +192,17 @@ function drawLineGraph(svg, points) {
     }
 
     // Add all lines to our svg
-    visAppend('North', north_apts, 'apt1', 2);
-    visAppend('Central', central_apts, 'apt2', 2);
-    visAppend('South', south_apts, 'apt3', 2);
+    visAppend('North', north_apts, 'apt', 2);
+    visAppend('Central', central_apts, 'apt', 2);
+    visAppend('South', south_apts, 'apt', 2);
 
-    visAppend('North', north_townh, 'townh1', 2);
-    visAppend('Central', central_townh, 'townh2', 2);
-    visAppend('South', south_townh, 'townh3', 2);
+    visAppend('North', north_townh, 'townh', 2);
+    visAppend('Central', central_townh, 'townh', 2);
+    visAppend('South', south_townh, 'townh', 2);
 
-    visAppend('North', north_det, 'det1', 2);
-    visAppend('Central', central_det, 'det2', 2);
-    visAppend('South', south_det, 'det3', 2);
+    visAppend('North', north_det, 'det', 2);
+    visAppend('Central', central_det, 'det', 2);
+    visAppend('South', south_det, 'det', 2);
 
     if ($('#north').prop('checked') == true){
         $('.North').show();
