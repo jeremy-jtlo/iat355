@@ -14,9 +14,14 @@ $( document ).ready(function() {
     console.log( "Practice2.js is ready." );
 });
 
-var vis = d3.select("#visualisation"),
-    WIDTH = 1000,
-    HEIGHT = 200,
+resp_width = $("#paired_vis").width();
+resp_height = $("#paired_vis").height();
+
+var vis = d3.select("#visualisation")
+        .attr("width", resp_width)
+        .attr("height", resp_height),
+    WIDTH = resp_width,
+    HEIGHT = resp_height,
     MARGINS = {
         top: 20,
         right: 20,
