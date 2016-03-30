@@ -60,12 +60,6 @@ var vis = d3.select("#visualisation")
         left: 50
     };
 
-// Background rectangle
-// vis.append("rect")
-//     .attr("width", "100%")
-//     .attr("height", "100%")
-//     .attr("fill", "#C9C9C9");
-
 // Returns a list of entries matching a REGION and LISTING TYPE
 function returnDataSet(d, desired_region, desired_type){
     var listing_list = []
