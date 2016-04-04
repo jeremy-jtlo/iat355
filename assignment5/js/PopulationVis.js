@@ -241,9 +241,39 @@ function hpi_income_graph() {
         .orient('left')
         .tickPadding(8);
 
-        var enterSelection = svg.selectAll("rect")
+        var tip1 = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+            return "<strong>Income:</strong> <span style='color:red'>" + d.Income + "</span>";
+        })
+
+        var tip2 = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+            return "<strong>HPI:</strong> <span style='color:red'>" + d.HPI + "</span>";
+        })
+
+        var enterselection1 = svg.selectAll("rect")
           .data(points)
           .enter();
+
+        var enterselection2 = svg.selectAll("rect")
+          .data(points)
+          .enter();
+
+          var svg = d3.select("body").append("svg")
+            .attr("width", WIDTH + MARGINS.left + MARGINS.right)
+            .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
+          .append("g")
+            .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
+
+
+        svg.call(tip1);
+        svg.call(tip2);
+
+
 
         // Append axes        
         vis.append("svg:g")
@@ -261,10 +291,10 @@ function hpi_income_graph() {
         .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
         .call(rxAxis); 
 
-        enterSelection.append("rect")
+        enterselection1.append("rect")
           .attr({
             // x: WIDTH/2,     
-            x: function(d) { return xScale(d.Income) + 20; },
+            x: function(d) { return xScale(d.Income) + 20;},
 
             y: function(d,i)
             {
@@ -281,8 +311,10 @@ function hpi_income_graph() {
             height: HEIGHT/num_bars,
             fill: "RGBA(25, 255, 0, 0.40)"
           })
+          .on('mouseover', tip1.show)
+        .on('mouseout', tip1.hide)
             
-        enterSelection.append("rect")
+        enterselection2.append("rect")
           .attr({
             x:WIDTH/2,     
 
@@ -300,6 +332,8 @@ function hpi_income_graph() {
             height: HEIGHT/num_bars,
             fill: "RGBA(255, 0, 25, 0.75)"
           })
+          .on('mouseover', tip2.show)
+        .on('mouseout', tip2.hide)
 
         }
 
