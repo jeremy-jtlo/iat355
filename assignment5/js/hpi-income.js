@@ -125,9 +125,31 @@ function hpi_income_graph() {
         .orient('left')
         .tickPadding(8);
 
-        var enterSelection = svg.selectAll("rect")
+        //reference tip library for hover
+        var tip1 = d3.tip()
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(d) {
+            return "<strong>Income:</strong> <span style='color:red'>" + d.Income + "</span>";
+        }
+
+         var tip2 = d3.tip()
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(d) {
+            return "<strong>HPI:</strong> <span style='color:red'>" + d.HPI + "</span>";
+        }
+          
+        var enterSelection1 = svg.selectAll("rect")
           .data(points)
           .enter();
+        var enterSelection2 = svg.selectAll("rect")
+          .data(points)
+          .enter();
+
+        //assign different tips for each side
+        enterSelection1.call(tip1);
+        enterSelection2.call(tip2);
 
         // Append axes        
         vis.append("svg:g")
@@ -145,7 +167,7 @@ function hpi_income_graph() {
         .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
         .call(rxAxis); 
 
-        enterSelection.append("rect")
+        enterSelection1.append("rect")
           .attr({
             // x: WIDTH/2,     
             x: function(d) { return xScale(d.Income) + 20; },
@@ -164,8 +186,12 @@ function hpi_income_graph() {
 
               height: 5
           })
+
+        //mouseover for Income
+        .on('mouseover', tip1.show)
+        .on('mouseout', tip1.hide)           
             
-        enterSelection.append("rect")
+        enterSelection2.append("rect")
           .attr({
             x:WIDTH/2,     
 
@@ -182,6 +208,11 @@ function hpi_income_graph() {
 
               height: 5
           })
+
+        //mouseover for HPI
+        .on('mouseover', tip2.show)
+        .on('mouseout', tip2.hide)          
+      });            
 
         }
 
