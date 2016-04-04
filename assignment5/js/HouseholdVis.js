@@ -156,7 +156,6 @@ function drawLineGraph(svg, points) {
     var yScale = d3.scale.linear()
     .domain([0, d3.max(points, function(d) { return d.Households; })])
     .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
-    console.log(HEIGHT);
 
     var yAxis = d3.svg.axis()
     .scale(yScale)

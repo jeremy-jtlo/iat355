@@ -224,14 +224,18 @@ function hpi_income_graph() {
 
          var rxScale = d3.scale.linear()
         .domain([0, d3.max(points, function(d) { return d.HPI; })])    
-        .range([WIDTH/2 , WIDTH - MARGINS.right]);    
+        // .range([WIDTH/2 , WIDTH - MARGINS.right]);
+        .range([0, WIDTH/2]);
+
+        console.log(WIDTH);
+        console.log(WIDTH - MARGINS.right); 
 
         // Define axes
         var xAxis = d3.svg.axis()
                 .scale(xScale);
 
         var rxAxis = d3.svg.axis()
-                .scale(rxScale)
+                .scale(rxScale);
                 
         var yScale =  d3.time.scale().domain([start_date, end_date]).range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
 
@@ -245,14 +249,14 @@ function hpi_income_graph() {
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            return "<strong>Income:</strong> <span style='color:red'>" + d.Income + "</span>";
+            return "<strong>Median Annual Income:</strong> <span style='color:red'>" + d.Income + "</span>";
         })
 
         var tip2 = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            return "<strong>HPI:</strong> <span style='color:red'>" + d.HPI + "</span>";
+            return "<strong>Housing Price Index:</strong> <span style='color:red'>" + d.HPI + "</span>";
         })
 
         var enterselection1 = svg.selectAll("rect")
@@ -288,12 +292,11 @@ function hpi_income_graph() {
 
         vis.append("svg:g")
         .attr("class", "axis")
-        .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+        .attr("transform", "translate(" + (WIDTH/2) + "," + (HEIGHT - MARGINS.bottom) + ")")
         .call(rxAxis); 
 
         enterselection1.append("rect")
-          .attr({
-            // x: WIDTH/2,     
+          .attr({    
             x: function(d) { return xScale(d.Income) + 20;},
 
             y: function(d,i)
@@ -324,8 +327,9 @@ function hpi_income_graph() {
             },
 
             width: function(d,i)
-            {          
-                return (rxScale(d.HPI)/2); //inverts the bars so that it is facing upwards
+            {   
+
+                return (rxScale(d.HPI)); //inverts the bars so that it is facing upwards
               // return Math.abs(rxScale(d.HPI) - rxScale(0));
             }, 
 
