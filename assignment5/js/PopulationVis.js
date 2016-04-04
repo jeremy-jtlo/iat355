@@ -209,7 +209,8 @@ function hpi_income_graph() {
 
     // Drawing the graph
     function drawHpiGraph(svg, points) {
-      
+        // Number of entries (for bar weight)
+        num_bars = 11;
         var date_array = getDateRange(points);
         
         date_array.sort(date_sort_asc);
@@ -265,37 +266,39 @@ function hpi_income_graph() {
             // x: WIDTH/2,     
             x: function(d) { return xScale(d.Income) + 20; },
 
-              y: function(d,i)
-              {
+            y: function(d,i)
+            {
                 return yScale(d.Year); //moves the y position of each bar to the x-axis
-              },
+            },
 
-              width: function(d,i)
-                {          
-                  // return (xScale(d.Income)); //inverts the bars so that it is facing upwards
-                  return Math.abs(xScale(d.Income) - xScale(0));
-                  // return xScale(d.Income);
-                }, 
+            width: function(d,i)
+            {          
+              // return (xScale(d.Income)); //inverts the bars so that it is facing upwards
+                return Math.abs(xScale(d.Income) - xScale(0));
+              // return xScale(d.Income);
+            }, 
 
-              height: 5
+            height: HEIGHT/num_bars,
+            fill: "RGBA(25, 255, 0, 0.40)"
           })
             
         enterSelection.append("rect")
           .attr({
             x:WIDTH/2,     
 
-              y: function(d,i)
-              {
+            y: function(d,i)
+            {
                 return yScale(d.Year); //moves the y position of each bar to the x-axis
-              },
+            },
 
-              width: function(d,i)
-                {          
-                  return (rxScale(d.HPI)/2); //inverts the bars so that it is facing upwards
-                  // return Math.abs(rxScale(d.HPI) - rxScale(0));
-                }, 
+            width: function(d,i)
+            {          
+                return (rxScale(d.HPI)/2); //inverts the bars so that it is facing upwards
+              // return Math.abs(rxScale(d.HPI) - rxScale(0));
+            }, 
 
-              height: 5
+            height: HEIGHT/num_bars,
+            fill: "RGBA(255, 0, 25, 0.75)"
           })
 
         }
