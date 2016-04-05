@@ -22,7 +22,32 @@ Medium - #fdae6b
 Dark - #e6550d
 
 */
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-weight: normal;
+  font-style: normal;
+  src: url('fonts/DroidSans.eot');
+  src: url('fonts/DroidSans.eot?#iefix') format('embedded-opentype'),
+       url('fonts/DroidSans.woff2') format('woff2'),
+       url('fonts/DroidSans.woff') format('woff'),
+       url('fonts/DroidSans.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-weight: bold;
+  font-style: normal;
+  src: url('fonts/DroidSans-Bold.eot');
+  src: url('fonts/DroidSans-Bold.eot?#iefix') format('embedded-opentype'),
+       url('fonts/DroidSans-Bold.woff2') format('woff2'),
+       url('fonts/DroidSans-Bold.woff') format('woff'),
+       url('fonts/DroidSans-Bold.ttf') format('truetype');
+}
+
+
 body {
+    font-family: 'Droid Sans', 'Open Sans', sans-serif;
     background-color: #C9C9C9;
 }
 
