@@ -60,8 +60,23 @@ body {
     font-size: 13px;
 }
 
+.data-line {
+  stroke: #555;
+}
+
+.data-line.North {
+  stroke: #3182bd;
+}
+
+.data-line.Central {
+  stroke: #31a354;
+}
+
+.data-line.South {
+  stroke: #e6550d;
+}
+
 .data-line:hover, .data-line:active {
-    stroke: black;
     stroke-width: 5;
 }
 

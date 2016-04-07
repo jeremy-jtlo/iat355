@@ -55,18 +55,8 @@ based on region.
 */
 function listing(){
 
-    // Y-axis number of ticks
-    var housing_ticks = 5;
-
-    // HELPER FUNCTION for drawing lines
-    var lineGen = d3.svg.line()
-                .x(function(d) {
-                    return xScale(d.Date);
-                })
-                .y(function(d) {
-                    return yScale(d.Households);
-                })
-                .interpolate("monotone"); // Interpolate gives us curves
+    // Global line weight
+    var line_weight = 2;
 
     // HELPER FUNCTION: clean data rows
     function fixListingRow(d){
@@ -96,22 +86,19 @@ function listing(){
 
     // HELPER FUNCTION: Draw axes for the available
     // listings graphs.
-    function drawListAxes(data, start, end, target_vis){
+    function drawListAxes(data, x, y, target_vis){
+
+        // Y-axis number of ticks
+        var housing_ticks = 5;
 
         // Scale and axes definitions
-        var xScale = d3.time.scale()
-                    .domain([start, end])
-                    .range([MARGINS.left, WIDTH - MARGINS.right]);
-        var yScale = d3.scale.linear()
-                    .domain([0, d3.max(data, function(d) { return d.Households; })])
-                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
     
         var xAxis = d3.svg.axis()
                     .ticks(d3.time.years)
-                    .scale(xScale);
+                    .scale(x);
 
         var yAxis = d3.svg.axis()
-                    .scale(yScale)
+                    .scale(y)
                     .ticks(housing_ticks)
                     .orient('left')
                     .tickPadding(8);
@@ -129,6 +116,26 @@ function listing(){
 
     }
 
+    // HELPER FUNCTION for drawing lines
+    function visAppend(region, data_set, target_vis, x, y, type, width) {
+
+        // HELPER FUNCTION for drawing lines
+        var lineGen = d3.svg.line()
+                .x(function(d) {
+                    return x(d.Date);
+                })
+                .y(function(d) {
+                    return y(d.Households);
+                })
+                .interpolate("monotone"); // Interpolate gives us curves
+
+        target_vis.append('svg:path')
+            .attr('class', region + ' data-line ' + type)
+            .attr('d', lineGen(data_set))
+            .attr('stroke-width', width)
+            .attr('fill', 'none');
+    }
+
     /*
     ==== DETACHED HOME GRAPH ====
     */
@@ -144,6 +151,13 @@ function listing(){
         .attr("width", WIDTH)
         .attr("height", HEIGHT);
 
+        var xScale = d3.time.scale()
+                    .domain([start_date, end_date])
+                    .range([MARGINS.left, WIDTH - MARGINS.right]);
+        var yScale = d3.scale.linear()
+                    .domain([0, d3.max(points, function(d) { return d.Households; })])
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+
         var north_det = returnDataSet(points, "North", "Detached");
         north_det.sort(sortObjByDate);
         
@@ -154,7 +168,12 @@ function listing(){
         south_det.sort(sortObjByDate);
 
         // Scale and axes definitions
-        drawListAxes(points, start_date, end_date, vis);
+        drawListAxes(points, xScale, yScale,vis);
+
+        // Draw the lines
+        visAppend("North", north_det, vis, xScale, yScale, "Detached", line_weight);
+        visAppend("Central", central_det, vis, xScale, yScale, "Detached", line_weight);
+        visAppend("South", south_det, vis, xScale, yScale, "Detached", line_weight);
 
     }
 
@@ -173,6 +192,13 @@ function listing(){
         .attr("width", WIDTH)
         .attr("height", HEIGHT);
 
+        var xScale = d3.time.scale()
+                    .domain([start_date, end_date])
+                    .range([MARGINS.left, WIDTH - MARGINS.right]);
+        var yScale = d3.scale.linear()
+                    .domain([0, d3.max(points, function(d) { return d.Households; })])
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+
         var north_apts = returnDataSet(points, "North", "Apartment");
         north_apts.sort(sortObjByDate);
 
@@ -182,7 +208,13 @@ function listing(){
         var south_apts = returnDataSet(points, "South", "Apartment");
         south_apts.sort(sortObjByDate);
 
-        drawListAxes(points, start_date, end_date, vis);
+        // Scale and axes definitions
+        drawListAxes(points, xScale, yScale,vis);
+
+        // Draw the lines
+        visAppend("North", north_apts, vis, xScale, yScale, "Apartment", line_weight);
+        visAppend("Central", central_apts, vis, xScale, yScale, "Apartment", line_weight);
+        visAppend("South", south_apts, vis, xScale, yScale, "Apartment", line_weight);
 
     }
 
@@ -201,6 +233,13 @@ function listing(){
         .attr("width", WIDTH)
         .attr("height", HEIGHT);
 
+        var xScale = d3.time.scale()
+                    .domain([start_date, end_date])
+                    .range([MARGINS.left, WIDTH - MARGINS.right]);
+        var yScale = d3.scale.linear()
+                    .domain([0, d3.max(points, function(d) { return d.Households; })])
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+
         var north_townh = returnDataSet(points, "North", "Townhouse");
         north_townh.sort(sortObjByDate);
         
@@ -210,10 +249,17 @@ function listing(){
         var south_townh = returnDataSet(points, "South", "Townhouse");
         south_townh.sort(sortObjByDate);
 
-        drawListAxes(points, start_date, end_date, vis);
+        // Scale and axes definitions
+        drawListAxes(points, xScale, yScale,vis);
+
+        // Draw the lines
+        visAppend("North", north_townh, vis, xScale, yScale, "Townhouse", line_weight);
+        visAppend("Central", central_townh, vis, xScale, yScale, "Townhouse", line_weight);
+        visAppend("South", south_townh, vis, xScale, yScale, "Townhouse", line_weight);
 
     }
 
+    // Calling the CSV file and running our functions
     d3.csv("http://www.sfu.ca/~erniet/IAT355/ernie-tsang_jeremy-lo_A4/csv/Active_Listings_D3.csv")
     .row(fixListingRow)
     .get(function(error, points){
