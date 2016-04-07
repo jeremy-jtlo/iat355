@@ -50,6 +50,16 @@ body {
     background-color: #C9C9C9;
 }
 
+.axis path {
+    fill: none;
+    stroke: #777;
+    shape-rendering: crispEdges;
+}
+.axis text {
+    font-family: Lato, 'Open Sans', sans-serif;
+    font-size: 13px;
+}
+
 .data-line:hover, .data-line:active {
     stroke: black;
     stroke-width: 5;
