@@ -38,7 +38,7 @@ function sortObjByDate(a,b) {
     return new Date(a.Date).getTime() - new Date(b.Date).getTime()
 }
 
-// General Grpah margins
+// General Graph margins
 MARGINS = {
         top: 20,
         right: 20,
@@ -57,6 +57,8 @@ function listing(){
 
     // Global line weight
     var line_weight = 2;
+    // Y-axis number of ticks
+    var housing_ticks = 5;
 
     // HELPER FUNCTION: clean data rows
     function fixListingRow(d){
@@ -88,9 +90,6 @@ function listing(){
     // listings graphs.
     function drawListAxes(data, x, y, target_vis){
 
-        // Y-axis number of ticks
-        var housing_ticks = 5;
-
         // Scale and axes definitions
     
         var xAxis = d3.svg.axis()
@@ -112,7 +111,13 @@ function listing(){
         target_vis.append("svg:g")
         .attr("class", "axis")
         .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-        .call(yAxis);
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("Active Listings");
 
     }
 
@@ -174,6 +179,16 @@ function listing(){
         visAppend("North", north_det, vis, xScale, yScale, "Detached", line_weight);
         visAppend("Central", central_det, vis, xScale, yScale, "Detached", line_weight);
         visAppend("South", south_det, vis, xScale, yScale, "Detached", line_weight);
+
+        // Adding dots
+        svg.selectAll("g.dot")
+        .data(north_det)
+        .enter().append("g")
+        .attr("class", "dot")
+        .append("circle")
+        .attr("r", 6)
+        .attr("cx", function(d,i) {  return xScale(d.Date); })
+        .attr("cy", function(d,i) { return yScale(d.Households); })
 
     }
 
