@@ -75,13 +75,22 @@ body {
 .data-line.North {
   stroke: #3182bd;
 }
+.dot.North circle {
+  fill: #3182bd;
+}
 
 .data-line.Central {
   stroke: #31a354;
 }
+.dot.Central circle {
+  fill: #31a354;
+}
 
 .data-line.South {
   stroke: #e6550d;
+}
+.dot.South circle {
+  fill: #e6550d;
 }
 
 .data-line:hover, .data-line:active {

@@ -139,6 +139,16 @@ function listing(){
             .attr('d', lineGen(data_set))
             .attr('stroke-width', width)
             .attr('fill', 'none');
+
+        // Adding dots
+        target_vis.selectAll("g.dot."+region)
+        .data(data_set)
+        .enter().append("g")
+        .attr("class", "dot " + region)
+        .append("circle")
+        .attr("r", 3)
+        .attr("cx", function(d,i) { return x(d.Date); })
+        .attr("cy", function(d,i) { return y(d.Households); })
     }
 
     /*
@@ -179,16 +189,6 @@ function listing(){
         visAppend("North", north_det, vis, xScale, yScale, "Detached", line_weight);
         visAppend("Central", central_det, vis, xScale, yScale, "Detached", line_weight);
         visAppend("South", south_det, vis, xScale, yScale, "Detached", line_weight);
-
-        // Adding dots
-        svg.selectAll("g.dot")
-        .data(north_det)
-        .enter().append("g")
-        .attr("class", "dot")
-        .append("circle")
-        .attr("r", 6)
-        .attr("cx", function(d,i) {  return xScale(d.Date); })
-        .attr("cy", function(d,i) { return yScale(d.Households); })
 
     }
 
