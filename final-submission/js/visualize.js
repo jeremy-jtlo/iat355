@@ -311,7 +311,7 @@ function population(){
     function fixPopRow(d)
     {
         var format = d3.time.format("%Y-%m-%d");
-        d["Date"] = format.parse(d["Date"]);
+        d["Year"] = new Date(d["Year"]);
         d["Population"] = +d["Population"];
         return d; 
     }
