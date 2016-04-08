@@ -312,22 +312,22 @@ function population(){
     {
         var format = d3.time.format("%Y-%m-%d");
         d["Date"] = format.parse(d["Date"]);
-        d["Households"] = +d["Households"];
+        d["Population"] = +d["Population"];
         return d; 
     }
 
     function returnDataSet(d, desired_region){
-        var listing_list = []
+        var population_list = []
         
         // Loop
         for (var i=0; i<d.length; i++){
-            var current_listing = d[i];
-            if ((current_listing["Region"] == desired_region)) {
-                listing_list.push(current_listing);
+            var current_region = d[i];
+            if ((current_region["Region"] == desired_region)) {
+                population_list.push(current_region);
             }
         }
         
-        return listing_list;
+        return population_list;
     }
 
     // HELPER FUNCTION: Draw axes for the available
