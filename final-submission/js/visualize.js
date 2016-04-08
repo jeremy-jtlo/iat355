@@ -2,6 +2,8 @@ $( document ).ready(function() {
     console.log( "visualize.js is ready." );
     listing();
     population();
+    pairedBars();
+
 });
 
 /*
@@ -448,6 +450,136 @@ function population(){
 
             var population_svg = d3.select("svg#population_vis");
             drawPopGraph(population_svg, points, date_array);
+        }
+    });
+}
+
+/*
+==================== pairedBars() ====================
+*/
+
+function pairedBars()
+{
+
+    // Global line weight
+    var bar_width = 10;
+    // Y-axis number of ticks
+    var paired_ticks = 5;
+   
+    function fixDataRow(d) {
+        d["Year"] = new Date(d["Year"]);
+        d["Income"] = +d["Income"];
+        // d["HPI"] = parseFloat(d["HPI"].replace(',',''));
+
+        return d;
+    }      
+
+     function returnDataSet(d, desired_type){
+        var type_list = []
+        
+        // Loop
+        for (var i=0; i<d.length; i++){
+            var current_type = d[i];
+            if ((current_type["Type"] == desired_type)) {
+                type_list.push(current_type);
+            }
+        }
+        
+        return type_list;
+    }
+
+    // HELPER FUNCTION: Draw axes for the available
+    // listings graphs.
+    function drawListAxes(data, x, y, target_vis){
+
+        // Scale and axes definitions
+    
+        var xAxis = d3.svg.axis()
+                    .ticks(d3.time.years)
+                    .scale(x);
+
+        var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .ticks(paired_ticks)
+                    .orient('left')
+                    .tickPadding(8);
+
+        // Append axes        
+        target_vis.append("svg:g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+        .call(xAxis);
+        
+        target_vis.append("svg:g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("HPI");
+    }
+
+    function visAppend(type, data_set, target_vis, x, y, width) 
+    {
+        target_vis.append('rect')
+            .attr('stroke-width', width)
+            .attr('fill', 'none');
+       
+    }
+
+    function drawPaired(svg, points, dates){
+
+        var start_date = dates[0];
+        var end_date = dates.pop();
+
+        WIDTH = $("#paired").width();
+        HEIGHT = $("#paired").height();
+
+        var vis = d3.select("#paired_vis")
+        .attr("width", WIDTH)
+        .attr("height", HEIGHT);
+
+        var xScale = d3.time.scale()
+                    .domain([start_date, end_date])
+                    .range([MARGINS.left, WIDTH - MARGINS.right]);
+        var yHPIScale = d3.scale.linear()
+                    .domain([0, d3.max(points, function(d) { return d.HPI; })])
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+        var yIncomeScale = d3.scale.linear()
+                    .domain([0, d3.max(points, function(d) { return d.Income; })])
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+
+        var hpi_type = returnDataSet(points, "HPI");
+        hpi_type.sort(sortObjByDate);
+        var income_type = returnDataSet(points, "Income");
+        income_type.sort(sortObjByDate);
+
+         // Scale and axes definitions
+        drawListAxes(points, xScale, yIncomeScale,vis);
+
+        // Draw the bars
+        visAppend("HPI", hpi_type, vis, xScale, yHPIScale, bar_width);   
+        visAppend("Income", hpi_type, vis, xScale, yIncomeScale, bar_width);   
+
+       
+    }
+
+    d3.csv("http://www.sfu.ca/~erniet/IAT355/Final/csv/paired.csv")
+    .row(fixDataRow)
+    .get(function(error, points){
+        if(error){
+            console.error("Something went wrong fetching the paired csv: " + error);
+        }else{ 
+            // Select only the correct svg
+
+            var date_array = getDataRange(points, "Date");
+            date_array.sort(dateSortAsc);
+
+            var paired_svg = d3.select("svg#paired_vis");
+            drawPaired(paired_svg, points, date_array);
         }
     });
 }
