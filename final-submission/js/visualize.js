@@ -467,10 +467,10 @@ function pairedBars()
     var paired_ticks = 5;
    
     function fixDataRow(d) {
-        d["Date"] = new Date(d["Date"]);
-        d["Income"] = +d["Income"];
-        // d["HPI"] = parseFloat(d["HPI"].replace(',',''));
-
+        
+        d["Date"] = new Date(d["Year"]);
+        d["Income"] = +d["Value"];
+        
         return d;
     }      
 
