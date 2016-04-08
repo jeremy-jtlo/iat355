@@ -464,12 +464,14 @@ function pairedBars()
     // Global line weight
     var bar_width = 10;
     // Y-axis number of ticks
-    var paired_ticks = 5;
+    var paired_ticks = 8;
    
     function fixDataRow(d) {
         
         d["Date"] = new Date(d["Year"]);
         d["Income"] = +d["Value"];
+        d["HPI"] = +d["Value"];
+
         
         return d;
     }      
@@ -502,7 +504,7 @@ function pairedBars()
                     .scale(y)
                     .ticks(paired_ticks)
                     .orient('left')
-                    .tickPadding(8);
+                    .tickPadding(-6);
 
         // Append axes        
         target_vis.append("svg:g")
@@ -524,10 +526,24 @@ function pairedBars()
 
     function visAppend(type, data_set, target_vis, x, y, width) 
     {
-        target_vis.append('rect')
-            .attr('stroke-width', width)
-            .attr('fill', 'none');
-       
+        //creates bars
+        target_vis.selectAll("rect")
+        .data(data_set)
+        .enter().append("g")
+        .append("rect")
+        .attr("x", function(d,i) { return x(d.Date); })
+        .attr("y", function(d,i) {return y(d.HPI); })
+        .attr("width", bar_width)
+        .attr("height", function(d,i) { return y(0) - y(d.HPI); })  
+
+        target_vis.selectAll("rect")
+        .data(data_set)
+        .enter().append("g")
+        .append("rect")
+        .attr("x", function(d,i) { return x(d.Date) + 50; })
+        .attr("y", function(d,i) {return y(d.Income); })
+        .attr("width", bar_width)
+        .attr("height", function(d,i) { return y(0) - y(d.Income); })       
     }
 
     function drawPaired(svg, points, dates){
@@ -562,7 +578,7 @@ function pairedBars()
 
         // Draw the bars
         visAppend("HPI", hpi_type, vis, xScale, yHPIScale, bar_width);   
-        visAppend("Income", Income_type, vis, xScale, yIncomeScale, bar_width);   
+        visAppend("Income", income_type, vis, xScale, yIncomeScale, bar_width);   
 
        
     }
