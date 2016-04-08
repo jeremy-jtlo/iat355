@@ -310,9 +310,9 @@ function population(){
     // HELPER FUNCTION: Clean our population csv.
     function fixPopRow(d)
     {
-        var format = d3.time.format("%Y-%m-%d");
-        d["Year"] = new Date(d["Year"]);
+        d["Date"] = new Date(d["Date"]);
         d["Population"] = +d["Population"];
+
         return d; 
     }
 
