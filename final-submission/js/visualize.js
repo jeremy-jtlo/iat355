@@ -344,7 +344,7 @@ function population(){
                     .scale(y)
                     .ticks(population_ticks)
                     .orient('left')
-                    .tickPadding(8);
+                    .tickPadding(0);
 
         // Append axes        
         target_vis.append("svg:g")
@@ -361,7 +361,7 @@ function population(){
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Active Listings");
+        .text("Population");
 
     }
 
