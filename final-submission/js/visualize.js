@@ -531,6 +531,7 @@ function pairedBars()
         .data(data_set)
         .enter().append("g")
         .append("rect")
+        .attr("class", "hpi")
         .attr("x", function(d,i) { return x(d.Date); })
         .attr("y", function(d,i) {return y(d.HPI); })
         .attr("width", bar_width)
@@ -544,7 +545,8 @@ function pairedBars()
         .data(data_set)
         .enter().append("g")
         .append("rect")
-        .attr("x", function(d,i) { return x(d.Date) + 15; })
+        .attr("class", "income")
+        .attr("x", function(d,i) { return x(d.Date) + 12; })
         .attr("y", function(d,i) {return y(d.Income); })
         .attr("width", bar_width)
         .attr("height", function(d,i) { return y(0) - y(d.Income); })                 
@@ -577,12 +579,14 @@ function pairedBars()
         var income_type = returnDataSet(points, "Income");
         income_type.sort(sortObjByDate);
 
-         // Scale and axes definitions
-        drawListAxes(points, xScale, yIncomeScale,vis);
+         
 
         // Draw the bars
         HPIAppend("HPI", hpi_type, vis, xScale, yHPIScale, bar_width);   
-        incomeAppend("Income", income_type, vis, xScale, yIncomeScale, bar_width);   
+        incomeAppend("Income", income_type, vis, xScale, yIncomeScale, bar_width);
+
+        // Scale and axes definitions
+        drawListAxes(points, xScale, yIncomeScale,vis);
 
        
     }

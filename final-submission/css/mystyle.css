@@ -97,6 +97,14 @@ body {
     stroke-width: 5;
 }
 
+rect.income {
+  fill: green;
+}
+
+rect.hpi {
+  fill: red;
+}
+
 .d3-tip {
   line-height: 1;
   font-weight: bold;
