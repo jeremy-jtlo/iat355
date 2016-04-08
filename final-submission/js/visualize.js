@@ -524,7 +524,7 @@ function pairedBars()
         .text("HPI vs Income");
     }
 
-    function visAppend(type, data_set, target_vis, x, y, width) 
+    function HPIAppend(type, data_set, target_vis, x, y, width) 
     {
         //creates bars
         target_vis.selectAll("rect")
@@ -534,16 +534,20 @@ function pairedBars()
         .attr("x", function(d,i) { return x(d.Date); })
         .attr("y", function(d,i) {return y(d.HPI); })
         .attr("width", bar_width)
-        .attr("height", function(d,i) { return y(0) - y(d.HPI); })  
+        .attr("height", function(d,i) { return y(0) - y(d.HPI); })                 
+    }
 
-        target_vis.selectAll("rect")
+     function incomeAppend(type, data_set, target_vis, x, y, width) 
+    {
+        //creates bars
+        target_vis.selectAll("empty")
         .data(data_set)
         .enter().append("g")
         .append("rect")
-        .attr("x", function(d,i) { return x(d.Date) + 50; })
+        .attr("x", function(d,i) { return x(d.Date) + 15; })
         .attr("y", function(d,i) {return y(d.Income); })
         .attr("width", bar_width)
-        .attr("height", function(d,i) { return y(0) - y(d.Income); })       
+        .attr("height", function(d,i) { return y(0) - y(d.Income); })                 
     }
 
     function drawPaired(svg, points, dates){
@@ -577,8 +581,8 @@ function pairedBars()
         drawListAxes(points, xScale, yIncomeScale,vis);
 
         // Draw the bars
-        visAppend("HPI", hpi_type, vis, xScale, yHPIScale, bar_width);   
-        visAppend("Income", income_type, vis, xScale, yIncomeScale, bar_width);   
+        HPIAppend("HPI", hpi_type, vis, xScale, yHPIScale, bar_width);   
+        incomeAppend("Income", income_type, vis, xScale, yIncomeScale, bar_width);   
 
        
     }
