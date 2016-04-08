@@ -467,7 +467,7 @@ function pairedBars()
     var paired_ticks = 5;
    
     function fixDataRow(d) {
-        d["Year"] = new Date(d["Year"]);
+        d["Date"] = new Date(d["Date"]);
         d["Income"] = +d["Income"];
         // d["HPI"] = parseFloat(d["HPI"].replace(',',''));
 
@@ -519,7 +519,7 @@ function pairedBars()
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("HPI");
+        .text("HPI vs Income");
     }
 
     function visAppend(type, data_set, target_vis, x, y, width) 
