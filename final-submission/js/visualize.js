@@ -562,7 +562,7 @@ function pairedBars()
 
         // Draw the bars
         visAppend("HPI", hpi_type, vis, xScale, yHPIScale, bar_width);   
-        visAppend("Income", hpi_type, vis, xScale, yIncomeScale, bar_width);   
+        visAppend("Income", Income_type, vis, xScale, yIncomeScale, bar_width);   
 
        
     }
