@@ -62,6 +62,13 @@ function listing(){
     // Y-axis number of ticks
     var housing_ticks = 5;
 
+    var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+            return "<strong>Population:</strong> <span style='color:red'>" + d.Households + "</span>";
+        })    
+
     // HELPER FUNCTION: clean data rows
     function fixListingRow(d){
 
@@ -151,6 +158,8 @@ function listing(){
         .attr("r", 3)
         .attr("cx", function(d,i) { return x(d.Date); })
         .attr("cy", function(d,i) { return y(d.Households); })
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide)
     }
 
     /*
@@ -191,6 +200,20 @@ function listing(){
         visAppend("North", north_det, vis, xScale, yScale, "Detached", line_weight);
         visAppend("Central", central_det, vis, xScale, yScale, "Detached", line_weight);
         visAppend("South", south_det, vis, xScale, yScale, "Detached", line_weight);
+
+        var target_vis = svg.selectAll("circle")
+          .data(points)
+          .enter();
+        
+
+          var svg = d3.select("body").append("svg")
+            .attr("width", WIDTH + MARGINS.left + MARGINS.right)
+            .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
+          .append("g")
+            .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
+
+
+        svg.call(tip);
 
     }
 
@@ -309,6 +332,13 @@ function population(){
     var line_weight = 2;
     var population_ticks = 5;
 
+     var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+            return "<strong>Population:</strong> <span style='color:red'>" + d.Population + "</span>";
+        })
+
     // HELPER FUNCTION: Clean our population csv.
     function fixPopRow(d)
     {
@@ -394,6 +424,8 @@ function population(){
         .attr("r", 3)
         .attr("cx", function(d,i) { return x(d.Date); })
         .attr("cy", function(d,i) { return y(d.Population); })
+         .on('mouseover', tip.show)
+        .on('mouseout', tip.hide)
     }
 
 
@@ -425,7 +457,22 @@ function population(){
         central_pop.sort(sortObjByDate);
 
         var south_pop = returnDataSet(points, "South");
-        south_pop.sort(sortObjByDate);
+        south_pop.sort(sortObjByDate);       
+        
+        var target_vis = svg.selectAll("circle")
+          .data(points)
+          .enter();
+        
+
+          var svg = d3.select("body").append("svg")
+            .attr("width", WIDTH + MARGINS.left + MARGINS.right)
+            .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
+          .append("g")
+            .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
+
+
+        svg.call(tip);
+
 
         // Scale and axes definitions
         drawListAxes(points, xScale, yScale,vis);
@@ -465,6 +512,20 @@ function pairedBars()
     var bar_width = 10;
     // Y-axis number of ticks
     var paired_ticks = 8;
+
+    var tip1 = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+            return "<strong>HPI:</strong> <span style='color:red'>" + d.HPI + "</span>";
+        })
+
+    var tip2 = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+            return "<strong>Income:</strong> <span style='color:red'>" + d.Income + "</span>";
+        })
    
     function fixDataRow(d) {
         
@@ -535,7 +596,9 @@ function pairedBars()
         .attr("x", function(d,i) { return x(d.Date); })
         .attr("y", function(d,i) {return y(d.HPI); })
         .attr("width", bar_width)
-        .attr("height", function(d,i) { return y(0) - y(d.HPI); })                 
+        .attr("height", function(d,i) { return y(0) - y(d.HPI); })
+        .on('mouseover', tip1.show)
+        .on('mouseout', tip1.hide)                 
     }
 
      function incomeAppend(type, data_set, target_vis, x, y, width) 
@@ -549,7 +612,9 @@ function pairedBars()
         .attr("x", function(d,i) { return x(d.Date) + 12; })
         .attr("y", function(d,i) {return y(d.Income); })
         .attr("width", bar_width)
-        .attr("height", function(d,i) { return y(0) - y(d.Income); })                 
+        .attr("height", function(d,i) { return y(0) - y(d.Income); })
+        .on('mouseover', tip2.show)
+        .on('mouseout', tip2.hide)                 
     }
 
     function drawPaired(svg, points, dates){
@@ -579,6 +644,21 @@ function pairedBars()
         var income_type = returnDataSet(points, "Income");
         income_type.sort(sortObjByDate);
 
+
+        var target_vis = svg.selectAll("rect")
+          .data(points)
+          .enter();
+
+        
+        var svg = d3.select("body").append("svg")
+            .attr("width", WIDTH + MARGINS.left + MARGINS.right)
+            .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
+            .append("g")
+            .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
+
+
+        svg.call(tip1);
+        svg.call(tip2);
          
 
         // Draw the bars
@@ -587,7 +667,6 @@ function pairedBars()
 
         // Scale and axes definitions
         drawListAxes(points, xScale, yIncomeScale,vis);
-
        
     }
 
