@@ -66,7 +66,8 @@ function listing(){
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            return "<strong>Population:</strong> <span style='color:red'>" + d.Households + "</span>";
+            console.log(d);
+            return "<strong>Detached Home Listings:</strong> <span style='color:red'>" + d.Households + "</span>";
         })    
 
     // HELPER FUNCTION: clean data rows
@@ -156,10 +157,10 @@ function listing(){
         .attr("class", "dot " + region)
         .append("circle")
         .attr("r", 3)
-        .attr("cx", function(d,i) { return x(d.Date); })
-        .attr("cy", function(d,i) { return y(d.Households); })
         .on('mouseover', tip.show)
         .on('mouseout', tip.hide)
+        .attr("cx", function(d,i) { return x(d.Date); })
+        .attr("cy", function(d,i) { return y(d.Households); });
     }
 
     /*
