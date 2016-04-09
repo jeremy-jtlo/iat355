@@ -67,7 +67,7 @@ function listing(){
             .offset([-10, 0])
             .html(function(d) {
             console.log(d);
-            return "<strong>Detached Home Listings:</strong> <span style='color:red'>" + d.Households + "</span>" + d.Region;
+            return "<strong>Detached Home Listings:</strong> <span style='color:red'>" + d.Households + "</span>" + d.Region + d.Type;
         })      
 
     // HELPER FUNCTION: clean data rows
@@ -253,11 +253,6 @@ function listing(){
         visAppend("Central", central_apts, vis, xScale, yScale, "Apartment", line_weight);
         visAppend("South", south_apts, vis, xScale, yScale, "Apartment", line_weight);
 
-        var target_vis = svg.selectAll("circle")
-          .data(points)
-          .enter();
-        
-
           var svg = d3.select("body").append("svg")
             .attr("width", WIDTH + MARGINS.left + MARGINS.right)
             .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
@@ -308,11 +303,7 @@ function listing(){
         visAppend("Central", central_townh, vis, xScale, yScale, "Townhouse", line_weight);
         visAppend("South", south_townh, vis, xScale, yScale, "Townhouse", line_weight);
 
-        var target_vis = svg.selectAll("circle")
-          .data(points)
-          .enter();
-        
-
+               
           var svg = d3.select("body").append("svg")
             .attr("width", WIDTH + MARGINS.left + MARGINS.right)
             .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
