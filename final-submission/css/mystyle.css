@@ -93,6 +93,10 @@ body {
   fill: #e6550d;
 }
 
+.dot circle {
+  transition: 200ms;
+}
+
 .dot circle:hover {
   fill: red;
 }
@@ -100,6 +104,14 @@ body {
 /*.data-line:hover, .data-line:active {
     stroke-width: 5;
 }*/
+
+rect {
+  transition: 200ms;
+}
+
+rect.income:hover, rect.hpi:hover {
+  fill: blue;
+}
 
 rect.income {
   fill: green;
