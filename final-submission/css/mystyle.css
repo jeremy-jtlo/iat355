@@ -93,9 +93,13 @@ body {
   fill: #e6550d;
 }
 
-.data-line:hover, .data-line:active {
-    stroke-width: 5;
+.dot circle:hover {
+  fill: red;
 }
+
+/*.data-line:hover, .data-line:active {
+    stroke-width: 5;
+}*/
 
 rect.income {
   fill: green;

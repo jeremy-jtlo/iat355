@@ -48,6 +48,12 @@ MARGINS = {
         left: 45
     };
 
+// Height for the larger visualisations
+LARGE_HEIGHT = 400;
+
+// Universal dot size for line graphs
+dot_radius = 5;
+
 /*
 ==================== LISTING() ====================
 
@@ -66,8 +72,7 @@ function listing(){
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            console.log(d);
-            return "<strong>Detached Home Listings:</strong> <span style='color:red'>" + d.Households + "</span>" + d.Region + d.Type;
+            return "<strong>"+ (d["Date"].getFullYear()) + " " + d.Region +" Surrey Listings:</strong> <span style='color:red'>" + d.Households + "</span>";
         })      
 
     // HELPER FUNCTION: clean data rows
@@ -156,7 +161,7 @@ function listing(){
         .enter().append("g")
         .attr("class", "dot " + region)
         .append("circle")
-        .attr("r", 3)
+        .attr("r", dot_radius)
         .on('mouseover', tip.show)
         .on('mouseout', tip.hide)
         .attr("cx", function(d,i) { return x(d.Date); })
@@ -203,10 +208,10 @@ function listing(){
         visAppend("South", south_det, vis, xScale, yScale, "Detached", line_weight);
 
               
-          var svg = d3.select("body").append("svg")
+        var svg = d3.select("body").append("svg")
             .attr("width", WIDTH + MARGINS.left + MARGINS.right)
             .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
-          .append("g")
+            .append("g")
             .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
 
 
@@ -253,10 +258,10 @@ function listing(){
         visAppend("Central", central_apts, vis, xScale, yScale, "Apartment", line_weight);
         visAppend("South", south_apts, vis, xScale, yScale, "Apartment", line_weight);
 
-          var svg = d3.select("body").append("svg")
+        var svg = d3.select("body").append("svg")
             .attr("width", WIDTH + MARGINS.left + MARGINS.right)
             .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
-          .append("g")
+            .append("g")
             .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
 
 
@@ -304,10 +309,10 @@ function listing(){
         visAppend("South", south_townh, vis, xScale, yScale, "Townhouse", line_weight);
 
                
-          var svg = d3.select("body").append("svg")
+        var svg = d3.select("body").append("svg")
             .attr("width", WIDTH + MARGINS.left + MARGINS.right)
             .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
-          .append("g")
+            .append("g")
             .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
 
 
@@ -437,10 +442,10 @@ function population(){
         .enter().append("g")
         .attr("class", "dot " + region)
         .append("circle")
-        .attr("r", 3)
+        .attr("r", dot_radius)
         .attr("cx", function(d,i) { return x(d.Date); })
         .attr("cy", function(d,i) { return y(d.Population); })
-         .on('mouseover', tip.show)
+        .on('mouseover', tip.show)
         .on('mouseout', tip.hide)
     }
 
@@ -453,7 +458,8 @@ function population(){
         var end_date = dates.pop();
 
         WIDTH = $("#population").width();
-        HEIGHT = $("#population").height();
+        // HEIGHT = $("#population").height();
+        HEIGHT = LARGE_HEIGHT;
 
         var vis = d3.select("#population_vis")
         .attr("width", WIDTH)
@@ -476,10 +482,10 @@ function population(){
         south_pop.sort(sortObjByDate);       
         
        
-          var svg = d3.select("body").append("svg")
+        var svg = d3.select("body").append("svg")
             .attr("width", WIDTH + MARGINS.left + MARGINS.right)
             .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
-          .append("g")
+            .append("g")
             .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
 
 
@@ -529,14 +535,14 @@ function pairedBars()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            return "<strong>HPI:</strong> <span style='color:red'>" + d.HPI + "</span>";
+            return "<strong>"+ (d["Date"].getFullYear()+1) +" Housing Price Index:</strong> <span style='color:red'>" + d.HPI + "</span>";
         })
 
     var tip2 = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            return "<strong>Income:</strong> <span style='color:red'>" + d.Income + "</span>";
+            return "<strong>"+ (d["Date"].getFullYear()+1) +" Median Income:</strong> <span style='color:red'>" + d.Income + "</span>";
         })
    
     function fixDataRow(d) {
@@ -635,7 +641,8 @@ function pairedBars()
         var end_date = dates.pop();
 
         WIDTH = $("#paired").width();
-        HEIGHT = $("#paired").height();
+        // HEIGHT = $("#paired").height();
+        HEIGHT = LARGE_HEIGHT + 33;
 
         var vis = d3.select("#paired_vis")
         .attr("width", WIDTH)
