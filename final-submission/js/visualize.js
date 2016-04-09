@@ -510,7 +510,7 @@ function population(){
 
     }
 
-    d3.csv("http://www.sfu.ca/~jtlo/iat355/data/population.csv")
+    d3.csv("http://www.sfu.ca/~erniet/IAT355/Final/csv/population.csv")
     .row(fixPopRow)
     .get(function(error, points){
         if(error){
@@ -663,7 +663,6 @@ function pairedBars()
     function drawPaired(svg, points, dates){
 
         var start_date = dates[0];
-        console.log(start_date);
         var end_date = dates.pop();
 
         WIDTH = $("#paired").width();
@@ -680,10 +679,12 @@ function pairedBars()
                     .nice();
         var yHPIScale = d3.scale.linear()
                     .domain([0, d3.max(points, function(d) { return d.HPI; })])
-                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0])
+                    .nice();
         var yIncomeScale = d3.scale.linear()
                     .domain([0, d3.max(points, function(d) { return d.Income; })])
-                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0])
+                    .nice();
 
         var hpi_type = returnDataSet(points, "HPI");
         hpi_type.sort(sortObjByDate);
@@ -718,7 +719,6 @@ function pairedBars()
             console.error("Something went wrong fetching the paired csv: " + error);
         }else{ 
             // Select only the correct svg
-
             var date_array = getDataRange(points, "Date");
             date_array.sort(dateSortAsc);
 
