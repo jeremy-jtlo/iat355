@@ -588,7 +588,7 @@ function pairedBars()
         // Append axes        
         target_vis.append("svg:g")
         .attr("class", "axis")
-        .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+        .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom*2) + ")")
         .call(xAxis);
         
         target_vis.append("svg:g")
@@ -642,7 +642,7 @@ function pairedBars()
 
         WIDTH = $("#paired").width();
         // HEIGHT = $("#paired").height();
-        HEIGHT = LARGE_HEIGHT + 33;
+        HEIGHT = LARGE_HEIGHT + 53;
 
         var vis = d3.select("#paired_vis")
         .attr("width", WIDTH)
