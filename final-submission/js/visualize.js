@@ -510,7 +510,7 @@ function population(){
 
     }
 
-    d3.csv("http://www.sfu.ca/~jtlo/iat355/data/population.csv")
+    d3.csv("http://www.sfu.ca/~erniet/IAT355/Final/csv/population.csv")
     .row(fixPopRow)
     .get(function(error, points){
         if(error){
