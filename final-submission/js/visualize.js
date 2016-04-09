@@ -363,7 +363,7 @@ function population(){
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            var content_string = d.Region + " Surrey Residents (" + (d.Date).getFullYear() + ")";
+            var content_string = d.Region + " Surrey Residents (" + ((d.Date).getFullYear() + 1) + ")";
             var value_string = numberWithCommas(d.Population);
 
             var return_string = "<span style='color:red'>"+ value_string +"</span><strong> " + content_string + "</strong>";
@@ -371,8 +371,7 @@ function population(){
         })
 
     // HELPER FUNCTION: Clean our population csv.
-    function fixPopRow(d)
-    {
+    function fixPopRow(d){
         d["Date"] = new Date(d["Date"]);
         d["Population"] = +d["Population"];
 
@@ -428,7 +427,7 @@ function population(){
 
     }
 
-     function visAppend(region, data_set, target_vis, x, y, width) {
+    function visAppend(region, data_set, target_vis, x, y, width) {
 
         // HELPER FUNCTION for drawing lines
         var lineGen = d3.svg.line()
@@ -462,8 +461,7 @@ function population(){
 
     // Handles the population graph. Currently in a 
     // col-md-6 block in the HTML.
-    function drawPopGraph(svg, points, dates)
-    {
+    function drawPopGraph(svg, points, dates){
         var start_date = dates[0];
         var end_date = dates.pop();
 
@@ -542,7 +540,7 @@ function pairedBars()
     var paired_ticks = 8;
 
     // Bar graph offset
-    var bar_offset = 12;
+    var bar_offset = 10;
 
     var tip1 = d3.tip()
             .attr('class', 'd3-tip')
