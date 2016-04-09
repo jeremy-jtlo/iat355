@@ -40,6 +40,12 @@ function sortObjByDate(a,b) {
     return new Date(a.Date).getTime() - new Date(b.Date).getTime()
 }
 
+// Convert a number to a string with commas
+// Pulled from http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 // General Graph margins
 MARGINS = {
         top: 20,
@@ -72,7 +78,7 @@ function listing(){
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            return "<strong>"+ (d["Date"].getFullYear()) + " " + d.Region +" Surrey Listings:</strong> <span style='color:red'>" + d.Households + "</span>";
+            return "<strong>"+ (d["Date"].getFullYear()) + " " + d.Region +" Surrey Listings:</strong> <span style='color:red'>" + numberWithCommas(d.Households) + "</span>";
         })      
 
     // HELPER FUNCTION: clean data rows
@@ -357,7 +363,11 @@ function population(){
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            return "<strong>Population:</strong> <span style='color:red'>" + d.Population + "</span>";
+            var content_string = d.Region + " Surrey Residents (" + (d.Date).getFullYear() + ")";
+            var value_string = numberWithCommas(d.Population);
+
+            var return_string = "<span style='color:red'>"+ value_string +"</span><strong> " + content_string + "</strong>";
+            return return_string;
         })
 
     // HELPER FUNCTION: Clean our population csv.
@@ -531,18 +541,21 @@ function pairedBars()
     // Y-axis number of ticks
     var paired_ticks = 8;
 
+    // Bar graph offset
+    var bar_offset = 12;
+
     var tip1 = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            return "<strong>"+ (d["Date"].getFullYear()+1) +" Housing Price Index:</strong> <span style='color:red'>" + d.HPI + "</span>";
+            return "<strong>"+ (d["Date"].getFullYear()+1) +" Housing Price Index:</strong> <span style='color:red'>$" + numberWithCommas(d.HPI) + " CAD</span>";
         })
 
     var tip2 = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-            return "<strong>"+ (d["Date"].getFullYear()+1) +" Median Income:</strong> <span style='color:red'>" + d.Income + "</span>";
+            return "<strong>"+ (d["Date"].getFullYear()+1) +" Median Annual Income:</strong> <span style='color:red'>$" + numberWithCommas(d.Income) + " CAD</span>";
         })
    
     function fixDataRow(d) {
@@ -555,7 +568,7 @@ function pairedBars()
         return d;
     }      
 
-     function returnDataSet(d, desired_type){
+    function returnDataSet(d, desired_type){
         var type_list = []
         
         // Loop
@@ -611,7 +624,14 @@ function pairedBars()
         .enter().append("g")
         .append("rect")
         .attr("class", "hpi")
-        .attr("x", function(d,i) { return x(d.Date); })
+        .attr("x", function(d,i) {
+
+            return_x = x(d.Date);
+            if ((d.Date).getFullYear() > 2005) {
+                return_x -= bar_offset;
+            }
+            return return_x; 
+        })
         .attr("y", function(d,i) {return y(d.HPI); })
         .attr("width", bar_width)
         .attr("height", function(d,i) { return y(0) - y(d.HPI); })
@@ -627,7 +647,14 @@ function pairedBars()
         .enter().append("g")
         .append("rect")
         .attr("class", "income")
-        .attr("x", function(d,i) { return x(d.Date) + 12; })
+        .attr("x", function(d,i) {
+
+            return_x = x(d.Date) + 12;
+            if ((d.Date).getFullYear() > 2005) {
+                return_x -= bar_offset;
+            }
+            return return_x; 
+        })
         .attr("y", function(d,i) {return y(d.Income); })
         .attr("width", bar_width)
         .attr("height", function(d,i) { return y(0) - y(d.Income); })
@@ -638,6 +665,7 @@ function pairedBars()
     function drawPaired(svg, points, dates){
 
         var start_date = dates[0];
+        console.log(start_date);
         var end_date = dates.pop();
 
         WIDTH = $("#paired").width();
@@ -650,7 +678,8 @@ function pairedBars()
 
         var xScale = d3.time.scale()
                     .domain([start_date, end_date])
-                    .range([MARGINS.left, WIDTH - MARGINS.right]);
+                    .range([MARGINS.left, WIDTH - MARGINS.right])
+                    .nice();
         var yHPIScale = d3.scale.linear()
                     .domain([0, d3.max(points, function(d) { return d.HPI; })])
                     .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
