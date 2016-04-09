@@ -67,8 +67,8 @@ function listing(){
             .offset([-10, 0])
             .html(function(d) {
             console.log(d);
-            return "<strong>Detached Home Listings:</strong> <span style='color:red'>" + d.Households + "</span>";
-        })    
+            return "<strong>Detached Home Listings:</strong> <span style='color:red'>" + d.Households + "</span>" + d.Region;
+        })      
 
     // HELPER FUNCTION: clean data rows
     function fixListingRow(d){
@@ -151,7 +151,7 @@ function listing(){
             .attr('fill', 'none');
 
         // Adding dots
-        target_vis.selectAll("g.dot."+region)
+        target_vis.selectAll("g.circle."+region)
         .data(data_set)
         .enter().append("g")
         .attr("class", "dot " + region)
@@ -202,11 +202,7 @@ function listing(){
         visAppend("Central", central_det, vis, xScale, yScale, "Detached", line_weight);
         visAppend("South", south_det, vis, xScale, yScale, "Detached", line_weight);
 
-        var target_vis = svg.selectAll("circle")
-          .data(points)
-          .enter();
-        
-
+              
           var svg = d3.select("body").append("svg")
             .attr("width", WIDTH + MARGINS.left + MARGINS.right)
             .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
@@ -257,6 +253,20 @@ function listing(){
         visAppend("Central", central_apts, vis, xScale, yScale, "Apartment", line_weight);
         visAppend("South", south_apts, vis, xScale, yScale, "Apartment", line_weight);
 
+        var target_vis = svg.selectAll("circle")
+          .data(points)
+          .enter();
+        
+
+          var svg = d3.select("body").append("svg")
+            .attr("width", WIDTH + MARGINS.left + MARGINS.right)
+            .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
+          .append("g")
+            .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
+
+
+        svg.call(tip);
+
     }
 
     /*
@@ -297,6 +307,20 @@ function listing(){
         visAppend("North", north_townh, vis, xScale, yScale, "Townhouse", line_weight);
         visAppend("Central", central_townh, vis, xScale, yScale, "Townhouse", line_weight);
         visAppend("South", south_townh, vis, xScale, yScale, "Townhouse", line_weight);
+
+        var target_vis = svg.selectAll("circle")
+          .data(points)
+          .enter();
+        
+
+          var svg = d3.select("body").append("svg")
+            .attr("width", WIDTH + MARGINS.left + MARGINS.right)
+            .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
+          .append("g")
+            .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
+
+
+        svg.call(tip);
 
     }
 
