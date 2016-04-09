@@ -475,11 +475,7 @@ function population(){
         var south_pop = returnDataSet(points, "South");
         south_pop.sort(sortObjByDate);       
         
-        var target_vis = svg.selectAll("circle")
-          .data(points)
-          .enter();
-        
-
+       
           var svg = d3.select("body").append("svg")
             .attr("width", WIDTH + MARGINS.left + MARGINS.right)
             .attr("height", HEIGHT + MARGINS.top + MARGINS.bottom)
@@ -659,11 +655,6 @@ function pairedBars()
         hpi_type.sort(sortObjByDate);
         var income_type = returnDataSet(points, "Income");
         income_type.sort(sortObjByDate);
-
-
-        var target_vis = svg.selectAll("rect")
-          .data(points)
-          .enter();
 
         
         var svg = d3.select("body").append("svg")
