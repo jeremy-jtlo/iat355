@@ -406,7 +406,7 @@ function population(){
                     .scale(y)
                     .ticks(population_ticks)
                     .orient('left')
-                    .tickPadding(0);
+                    .tickPadding(-3);
 
         // Append axes        
         target_vis.append("svg:g")
@@ -478,7 +478,7 @@ function population(){
                     .range([MARGINS.left, WIDTH - MARGINS.right]);
         var yScale = d3.scale.linear()
                     .domain([0, d3.max(points, function(d) { return d.Population; })])
-                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, MARGINS.top]);
 
         var north_pop = returnDataSet(points, "North");
         north_pop.sort(sortObjByDate);
@@ -679,11 +679,11 @@ function pairedBars()
                     .nice();
         var yHPIScale = d3.scale.linear()
                     .domain([0, d3.max(points, function(d) { return d.HPI; })])
-                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0])
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, MARGINS.top])
                     .nice();
         var yIncomeScale = d3.scale.linear()
                     .domain([0, d3.max(points, function(d) { return d.Income; })])
-                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0])
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, MARGINS.top])
                     .nice();
 
         var hpi_type = returnDataSet(points, "HPI");
