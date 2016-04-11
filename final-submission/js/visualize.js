@@ -406,7 +406,7 @@ function population(){
                     .scale(y)
                     .ticks(population_ticks)
                     .orient('left')
-                    .tickPadding(-3);
+                    .tickPadding(-4);
 
         // Append axes        
         target_vis.append("svg:g")
@@ -423,7 +423,7 @@ function population(){
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Population");
+        .text("Estimated Residents");
 
     }
 
@@ -462,7 +462,14 @@ function population(){
     // Handles the population graph. Currently in a 
     // col-md-6 block in the HTML.
     function drawPopGraph(svg, points, dates){
+
+        // Fixing off-by-1 errors in JS Date() objects
         var start_date = dates[0];
+        var start_year = start_date.getFullYear() + 2;
+        start_year += "";
+
+        start_date = new Date(start_year);
+
         var end_date = dates.pop();
 
         WIDTH = $("#population").width();
@@ -475,7 +482,8 @@ function population(){
 
         var xScale = d3.time.scale()
                     .domain([start_date, end_date])
-                    .range([MARGINS.left, WIDTH - MARGINS.right]);
+                    .range([MARGINS.left, WIDTH - MARGINS.right])
+                    .nice();
         var yScale = d3.scale.linear()
                     .domain([0, d3.max(points, function(d) { return d.Population; })])
                     .range([HEIGHT - MARGINS.top - MARGINS.bottom, MARGINS.top]);
@@ -594,7 +602,7 @@ function pairedBars()
                     .scale(y)
                     .ticks(paired_ticks)
                     .orient('left')
-                    .tickPadding(-6);
+                    .tickPadding(-5);
 
         // Append axes        
         target_vis.append("svg:g")
