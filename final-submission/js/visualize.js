@@ -194,7 +194,8 @@ function listing(){
                     .range([MARGINS.left, WIDTH - MARGINS.right]);
         var yScale = d3.scale.linear()
                     .domain([0, d3.max(points, function(d) { return d.Households; })])
-                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, MARGINS.top])
+                    .nice();
 
         var north_det = returnDataSet(points, "North", "Detached");
         north_det.sort(sortObjByDate);
@@ -245,7 +246,8 @@ function listing(){
                     .range([MARGINS.left, WIDTH - MARGINS.right]);
         var yScale = d3.scale.linear()
                     .domain([0, d3.max(points, function(d) { return d.Households; })])
-                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, MARGINS.top])
+                    .nice();
 
         var north_apts = returnDataSet(points, "North", "Apartment");
         north_apts.sort(sortObjByDate);
@@ -295,7 +297,8 @@ function listing(){
                     .range([MARGINS.left, WIDTH - MARGINS.right]);
         var yScale = d3.scale.linear()
                     .domain([0, d3.max(points, function(d) { return d.Households; })])
-                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, 0]);
+                    .range([HEIGHT - MARGINS.top - MARGINS.bottom, MARGINS.top])
+                    .nice();
 
         var north_townh = returnDataSet(points, "North", "Townhouse");
         north_townh.sort(sortObjByDate);
