@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+    
     console.log( "visualize.js is ready." );
     listing();
     population();
