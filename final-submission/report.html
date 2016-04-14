@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Report</h1>
+                <h1>Report (available as <a href="../finalassignment_ernie-tsang_jeremy-lo.pdf" target="_blank">PDF</a>)</h1>
                 <a href="index.html">&#8592; Back to the visualizations</a>
             </div>
         </div>
@@ -176,6 +176,165 @@
         <div class="row spaced">
             <div class="col-md-12">
                 <a href="index.html">&#8592; Back to the visualizations</a>
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row spaced">
+            <div class="col-md-12">
+                <h2 class="centered">Contribution Reports</h2>
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Jeremy</h3>
+                <p>
+                    More details are available in our <a target="_blank" href="https://github.com/jeremy-jtlo/iat355/commits/master">github commit logs</a>.
+                </p>
+                <h4 class="spaced">Summary</h4>
+                <p>
+                    Handled code refactoring and new architecture, small multiple graphs, page layout, CSS, helper function creation, and general fixes to display issues. The new architecture relies on a <code>$( document ).ready()</code>, calling 3 general functions after the ready statement finishes. The full codebase is available in our <a target="_blank" href="https://github.com/jeremy-jtlo/iat355/">github repo</a>.
+                </p>
+                <h4 class="spaced">getDataRange(), dateSortAsc(), sortObjByDate(), numberWithCommas()</h4>
+                <p>
+                    Helper functions used in the deeper sections of code. Useful for pulling data from individual columns, sorting objects, and formatting strings for output.
+                </p>
+                <h4 class="spaced">listing()</h4>
+                <ul>
+                    <li>
+                        fixListingRow()
+                        <ul>
+                            <li>Cleans data from the CSV file, returning Date() objects and numbers rather than strings</li>
+                        </ul>
+                    </li>
+                    <li>
+                        returnDataSet()
+                        <ul>
+                            <li>Reads an input data set and returns a list of entries matching a desired user criteria, based on the listing type and the region.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        drawListAxes()
+                        <ul>
+                            <li>Draws the x and y axis on some target visualization based on given x/y scales and data set</li>
+                        </ul>
+                    </li>
+                    <li>
+                        visAppend()
+                        <ul>
+                            <li>Appends a &lt;path&gt; and &lt;circle&gt; objects to the desired visualization, based on the specified data set and scale parameters. Classes for the drawn lines and circles are added here for CSS styling later on.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>
+                    For the actual drawing of the graphs, 3 separate Draw() functions were called, each leveraging the helper functions to help reduce duplicate code.
+                </p>
+                <p>
+                    Apart from creating the above structures, Jeremy’s duties included bug fixes, support, and the implementation of desired features like adding data points to the line graphs or scale correction. Data hovering and d3 tooltips were handled in Ernie’s work, along with the foundation work required to draw the population and HPI-income graphs.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h3>Ernie</h3>
+                <p>
+                    Throughout the entire project, I was primarily responsible for gathering data and cleaning that data as well as assisting with the coding. For gathering data, I pulled open data from Surrey’s official website and I cleaned them up manually by both combining and excluding data. For my contribution in the programming, I followed Jeremy’s code architecture to build both the “Population” visualization and the “HPI vs Income” visualization.
+                </p>
+                <p>
+                    For both <strong>pairedBars()</strong> and <strong>population()</strong>, each visualization contains these functions:
+                </p>
+                <ul>
+                    <li>
+                        fixListingRow()
+                        <ul>
+                            <li>Helps convert incoming CSV data into strings and Date() objects</li>
+                        </ul>
+                    </li>
+                    <li>
+                        returnDataSet()
+                        <ul>
+                            <li>Returns the criteria that is desired for that specific piece of data, in the case of these two visualizations, it is the region. </li>
+                        </ul>
+                    </li>
+                    <li>
+                        drawListAxes()
+                        <ul>
+                            <li>Draws the x and y axis based on xscale and yscale, including the ticks for both population and HPI-Income graphs</li>
+                        </ul>
+                    </li>
+                    <li>
+                        visAppend()
+                        <ul>
+                            <li>Appends the lines and the circles for the population visualization and appends the bars for the HPI vs Income visualization.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>
+                    In addition to building these two visualizations, I also built the hover interaction to all of our visualizations. I searched online and found the d3-tip library and implemented it into all of our visualizations. The css styling for the tooltip is done by Jeremy.
+                </p>
+                <ul>
+                    <li>
+                        var tip = d3.tip()
+                        <ul>
+                            <li>Initializes the tooltip by referencing the library</li>
+                        </ul>
+                    </li>
+                    <li>
+                        var svg = d3.select("body").append("svg")
+                        <ul>
+                            <li>Creates a svg on the body, separate from the visualizations</li>
+                        </ul>
+                    </li>
+                    <li>
+                        svg.call(tip);
+                        <ul>
+                            <li>Invoking tip in context of visualization</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>
+                    In the append functions, I used .selectAll() to select all elements for the tip to highlight over. In the case of the bar chart, I used target_vis.selectAll("rect") including the following attributes:
+                </p>
+                <ul>
+                    <li>
+                        .on('mouseover', tip.show)
+                        <ul>
+                            <li>When mouse hovers over a piece of data such as a circle or a bar, show the tip at that location</li>
+                        </ul>
+                    </li>
+                    <li>
+                        .on('mouseout', tip.hide)
+                        <ul>
+                            <li>When the mouse leaves that piece of data, hide the tip</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>
+                    Some of my other contributions are bug fixing, general coding support, and testing.
+                </p>
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Bibliography &amp; Resources</h3>
+                <ul>
+                    <li><a target="_blank" href="http://code.tutsplus.com/tutorials/building-a-multi-line-chart-using-d3js--cms-22935">Line Chart Tutorial</a></li>
+                    <li><a target="_blank" href="https://onpub.com/how-to-sort-an-array-of-dates-with-javascript-s7-a109">Sorting Date Objects</a></li>
+                    <li><a target="_blank" href="http://stackoverflow.com/questions/19430561/how-to-sort-a-javascript-array-of-objects-by-date">Sort Objects by Date Key</a></li>
+                    <li><a target="_blank" href="http://www.surrey.ca/business-economic-development/1418.aspx">Population Data Source</a></li>
+                    <li><a target="_blank" href="https://jquery.com/download/">jQuery</a></li>
+                    <li><a target="_blank" href="https://www.surrey.ca/files/Income_%28Total%29_Demographic_Profile.pdf">Income Data</a></li>
+                    <li><a target="_blank" href="http://www.rebgv.org/home-price-index">Housing Price Index Data</a></li>
+                    <li><a target="_blank" href="http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript">Converting Numbers to Comma-separated Strings</a></li>
+                    <li><a target="_blank" href="https://github.com/Caged/d3-tip">Hovering D3 Tooltip Library</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h3>See Also</h3>
+                <ul>
+                    <li><a href="index.html">Back to the visualizations</a></li>
+                    <li><a target="_blank" href="https://github.com/jeremy-jtlo/iat355">Our Github Repo</a></li>
+
+                </ul>
             </div>
         </div> <!-- end of .row -->
 
