@@ -678,7 +678,7 @@ function pairedBars()
 
         WIDTH = $("#paired").width();
         // HEIGHT = $("#paired").height();
-        HEIGHT = LARGE_HEIGHT + 53;
+        HEIGHT = LARGE_HEIGHT + 20;
 
         var vis = d3.select("#paired_vis")
         .attr("width", WIDTH)
