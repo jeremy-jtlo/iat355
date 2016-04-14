@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Surrey Housing Data</title>
+    <!-- link to css -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/justified-nav/justified-nav.css" rel="stylesheet">
+    <link href="css/mystyle.css" rel="stylesheet">
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <meta charset="utf-8">
+</head>
+ 
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Report</h1>
+                <a href="index.html">&#8592; Back to the visualizations</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Overview</h3>
+                <p>
+                This project originated on the curiosity of newly hired grads looking for more information about the changing scope of real estate in relation to their own earning power in the near future: how are things changing? Are prices hovering at an attainable range, or fluctuating outside the realm of possibility? Many young people, emerging from school, would like the ability to evaluate the current climate of real estate before pushing towards a home in any city in the Surrey. Our team has gathered various data surrounding the city of Surrey to investigate what’s changing about the city, and whether those changes bode well for potential buyers with modest salaries.
+                </p>
+            </div>
+            <div class="col-md-8">
+                <h3>Introduction</h3>
+                <p>
+                    Our visualizations are meant to shed some light on the underlying patterns in real estate for various neighborhoods found in Surrey. By examining data provided by both Surrey and the Greater Vancouver area, we can hopefully gain some insights to when someone might have luck finding a home, and how much it will end up costing them proportionally to their finances.
+                </p>
+
+                <p>
+                    Young jobseekers and new graduates are the primary audience for our visualizations. These people are typically between 22 and 27, with a post-secondary education, looking to someday purchase a home in the north, south, or central regions of Surrey. With their youth and inexperience in the workforce, introductory salaries ranging from $40,000 to $65,000 CAD annually is expected -- certainly not in the territory of hedge fund managers or venture capitalists. Though lifestyles in this age bracket are subject to change, it is assumed that the number of children for this primary audience will be between 0 and 3. 
+                </p>
+
+                <p>
+                    For the secondary audience, realtors and investors aged 30 to 50 with an interest in Surrey properties for the purpose of profit and trends before residence. While the information is not of the highest fidelity, there is no reason that more educated audiences won’t be able to read and enjoy the graphs.
+                </p>
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row">
+            <div class="col-md-8">
+                <h3>The Data</h3>
+                <p>
+                    All of our data comes from official open data that have been released by the city of Surrey, where possible (income data was gathered from the Greater Vancouver region). All of our data utilizes time as a reference so that viewers can see trends. Other dimensions used include values such as active listings, population, House Price Index, and median income. 
+                </p>
+                <p>
+                    Since the data that Surrey provides are extensive and detailed, we had to clean up the data. Originally, the HPI and income are from two separate sources. We combined them together so that these two pieces of data can be compared together across 3 or 4 columns. Furthermore, both Listings and population had more specific regions such as Guildford and Fleetwood but we ended up compressing these regions together into North (Delta), Central, and South (Whiterock).
+                </p>
+                <p>
+                    Cleaning happened in 2 ways: either the incoming data had its cells pruned and extracted (population, income), or the data was manually entered to a CSV sheet from a PDF (housing price index). WIth the variety of data formats, sometimes manual data entry was necessary, as it’s very difficult to automate the scanning of long PDFs to find 3 values.
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h3>Problem &amp; Domain Questions</h3>
+                <ul>
+                    <li>
+                        Is now a good time to purchase a home?
+                        <ul>
+                            <li>If so, which region and which type of house to purchase?</li>
+                            <li>If not, when is a good time?</li>
+                        </ul>
+                    </li>
+                    <li>
+                        How well is the salary of earners in the city doing in comparison to the price of property?
+                        <ul>
+                            <li>Is the median salary changing in a positive way?</li>
+                            <li>Is the price of property changing at a desirable rate?</li>
+                            <li>If either are changing, will property remain realistically affordable for the average worker in the Greater Vancouver area?</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+        </div> <!-- end of .row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Visualization Design</h3>
+                <p>
+                    Overall, there are 3 total sets of data we’ve chosen to examine in our graphs:
+                    <ul>
+                        <li>Number of available property listings across North Surrey (Delta), Central Surrey, and South Surrey (Whiterock)</li>
+                        <li>Changes in population year over year in these 3 Surrey regions</li>
+                        <li>Total median income for Greater Vancouver vs. Surrey Housing Price Index (HPI)</li>
+                    </ul>
+                    Originally, the first set of data was to be mapped to one graph: 3 different types of listings across 3 regions, which we decided to map to a line graph, categorizing both region and listing type with colour. This decision was made to reveal the trend across listings: are more listings popping up yearly, or are they in a decline? In order to also expose the details of the active listings, we’ve also opted for a dotted plot on the lines that reveal the specific data points to make the graph more readable.
+                </p>
+                <p>
+                    Unfortunately, the first iteration graph was too crowded: 9 lines of different colours do not effectively sit on the same graph. Filtering was implemented to reduce the noise between lines, but it introduced issues with memory. By hiding other lines, it was difficult to recall what values the other lines had, so the decision was made to split the graph into 3 using small multiple views. Each graph measured only 1 type of property listing (apartment, townhouse, detached home), reducing the number of colours and lines per graph to 3. Having the data split across these smaller views made the information much easier to consume, as the visual noise was reduced.
+                </p>
+            </div>
+
+        </div> <!-- end of .row -->
+
+        <div class="row spaced">
+            <div id="detached" class="col-md-12">
+
+                <svg id="detached_vis"></svg>
+                <p><em>Pictured: One of the Small Multiple graphs used</em></p>
+
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    A similar situation arose for the <strong>Population Graph</strong>. By using data from 2004 to 2014, we wanted to explore trends again in the 3 regions of Surrey. For each of the 3 regions, how have the overall populations changed? Will the trend in population appear similar at all to the number of active listings, or reveal a correlation? This solution also leverages details on demand via hovers, exposing explicit values on mouse hover over each point on the lines.
+                </p>
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row spaced">
+            <div id="population" class="col-md-12">                
+                <svg id="population_vis"></svg>
+                <p><em>Pictured: the graph of population trends from 2004-2014</em></p>
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    For the <strong>HPI-Income graph</strong>, we wanted to expose the difference between Housing Price Index and Income, as pairs. With this in mind, a paired bar graph was implemented. By placing the values next to each other, examining the difference between the values is simple. Time is used on the x-axis to also display the longer term behaviour of both values. This ended up exposing the startling changes in the housing price index, compared to the relatively stagnant median annual income.
+                </p>
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row spaced">
+            <div id="paired" class="col-md-12">
+                <svg id="paired_vis"></svg>
+                <p><em>Pictured: comparison graph between Housing Price Index (HPI) and annual income</em></p>
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    Through the graphs, the North (blue), Central (green), and South (orange) region data is mapped to the same colours. Scale is maintained as a constant between the active listing graphs, in order to expose the differences between each listing type.
+                </p>
+                <p>
+                    Interactions in our visualization are limited to mouse over events. By hovering over any particular value (circular line point or bar graph element), you can view its value while brushing the value itself to a different colour.
+                </p>
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Further Work</h3>
+                <p>
+                    We managed to implement the base features showing our visualizations in a static way with some minor interactions. What would have been the next step would be some more advanced brushing and more comprehensive comparison tools between values. While there is continuity between some of our visualizations, currently there is little interaction between the data - it would be quite beneficial to be able to select a data point and compare it to other values across the other graphs on the page.
+                </p>
+                <p>
+                    Being able to unify the graphs further through time would also be beneficial: brushing columns in each of the graphs based on a year selection and retrieving statistics from those years in a “summary” section.
+                </p>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Conclusion</h3>
+                <p>
+                    The visualizations our team managed to produce some interesting trends. Active listings tend to pulse in the summer, with most listings closing by the beginning of the next year. In terms of the most popular type of listing by far turned out to be detached homes in Central Surrey, capping out at almost 1400 in the summer of 2010. If anyone was attempting to buy a home, they’d have the widest range of choice just after May in all 3 regions, no matter what type of property is up for sale.
+                </p>
+                <p>
+                    Population over the past 10 years in Surrey has seen a steady, almost linear increase. There is a small spike in 2007 across the 3 regions of interest, but other than that the stream of new residents is fairly calm.
+                </p>
+                <p>
+                    Finally, for Housing Price Index and median annual income, the data has shown that although Greater Vancouver’s median income is overall increasing, it is not increasing in a magnitude significant enough when compared to the Housing Price Index. HPI managed to jump up by $75,000 CAD in just 8 years, with median annual income increasing only by ~$13,000. If this trend continues, many new graduates entering the workforce will not likely be able to save for a home, as the price simply continues to climb at a rate that yearly wages cannot keep up with.
+                </p>
+            </div>
+        </div> <!-- end of .row -->
+
+        <div class="row spaced">
+            <div class="col-md-12">
+                <a href="index.html">&#8592; Back to the visualizations</a>
+            </div>
+        </div> <!-- end of .row -->
+
+    </div> <!-- end of .container -->
+
+    <!-- include libraries and data -->
+    <script src="lib/jquery-2.2.1.min.js"></script>
+    <script src="lib/d3tip.js"></script>
+    <script src="js/visualize.js"></script>
+
+</body>
+</html>
